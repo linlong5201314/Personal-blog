@@ -45,6 +45,14 @@
         <li role="none"><a href="#contact" class="nav-link" role="menuitem">联系我</a></li>
       </ul>
       
+      <button class="theme-toggle" id="theme-toggle" type="button" aria-label="切换主题" aria-pressed="false">
+        <span aria-hidden="true">🎨</span>
+      </button>
+
+      <button class="mode-toggle" id="mode-toggle" type="button" aria-label="切换深浅模式" aria-pressed="false">
+        <span aria-hidden="true">🌙</span>
+      </button>
+      
       <button class="nav-toggle" id="nav-toggle" type="button" aria-label="切换导航菜单" aria-expanded="false" aria-controls="nav-links" aria-haspopup="true">
         <span class="hamburger-line" aria-hidden="true"></span>
         <span class="hamburger-line" aria-hidden="true"></span>
@@ -59,31 +67,37 @@
     <section id="introduction" class="introduction-section" aria-labelledby="introduction-title" role="region">
       <div class="section-container">
         <h1 id="introduction-title" class="intro-greeting">嗨～欢迎来到我的小天地！ 🌟</h1>
-        
-        <div class="intro-content">
-          <p class="intro-text">
-            我是一个热爱生活、喜欢交朋友的人。平时喜欢打打<span class="highlight-tag">羽毛球</span>、跑跑步，也爱刷<span class="highlight-tag">抖音</span>、追剧，偶尔还会玩玩<span class="highlight-tag">王者荣耀</span>。最近对<span class="highlight-tag">AI</span>特别感兴趣，喜欢捣鼓各种AI小玩意。
-          </p>
-          <p class="intro-text">
-            性格上，我待人<span class="highlight-tag">友好</span>，乐于交流和帮助他人；做事有<span class="highlight-tag">耐心</span>，喜欢慢慢琢磨解决问题；对在意的人特别<span class="highlight-tag">重视羁绊</span>，会用心维护每一段珍贵的关系。
-          </p>
-          <p class="intro-text">
-            如果你也喜欢聊技术、打游戏，或者只是想找个人唠唠嗑，欢迎来认识我！
-          </p>
-        </div>
-        
-        <div class="intro-tags" role="list" aria-label="兴趣标签">
-          <span class="tag tag-sports" role="listitem">🏃 运动达人</span>
-          <span class="tag tag-leisure" role="listitem">🎮 娱乐爱好者</span>
-          <span class="tag tag-tech" role="listitem">🤖 AI探索者</span>
-          <span class="tag tag-friendly" role="listitem">💖 友善热情</span>
-        </div>
 
-        <a href="#contact" class="intro-chat-btn" aria-label="跳转到联系我">
-          <span class="btn-shine"></span>
-          <span class="btn-icon">💬</span>
-          <span class="btn-text">与我聊天</span>
-        </a>
+        <div class="intro-grid">
+          <div class="intro-copy">
+            <div class="intro-content">
+              <p class="intro-text">
+                我是一个热爱生活、喜欢交朋友的人。平时喜欢打打<span class="highlight-tag">羽毛球</span>、跑跑步，也爱刷<span class="highlight-tag">抖音</span>、追剧，偶尔还会玩玩<span class="highlight-tag">王者荣耀</span>。最近对<span class="highlight-tag">AI</span>特别感兴趣，喜欢捣鼓各种AI小玩意。
+              </p>
+              <p class="intro-text">
+                性格上，我待人<span class="highlight-tag">友好</span>，乐于交流和帮助他人；做事有<span class="highlight-tag">耐心</span>，喜欢慢慢琢磨解决问题；对在意的人特别<span class="highlight-tag">重视羁绊</span>，会用心维护每一段珍贵的关系。
+              </p>
+              <p class="intro-text">
+                如果你也喜欢聊技术、打游戏，或者只是想找个人唠唠嗑，欢迎来认识我！
+              </p>
+            </div>
+          </div>
+
+          <aside class="intro-card" aria-label="个人标签与快速入口">
+            <div class="intro-tags" role="list" aria-label="兴趣标签">
+              <span class="tag tag-sports" role="listitem">🏃 运动达人</span>
+              <span class="tag tag-leisure" role="listitem">🎮 娱乐爱好者</span>
+              <span class="tag tag-tech" role="listitem">🤖 AI探索者</span>
+              <span class="tag tag-friendly" role="listitem">💖 友善热情</span>
+            </div>
+
+            <a href="#contact" class="intro-chat-btn" aria-label="跳转到联系我">
+              <span class="btn-shine"></span>
+              <span class="btn-icon">💬</span>
+              <span class="btn-text">与我聊天</span>
+            </a>
+          </aside>
+        </div>
       </div>
     </section>
 

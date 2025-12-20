@@ -9,8 +9,47 @@ document.addEventListener('DOMContentLoaded', function() {
   initCursorGlow();
   initWechatModal();
   initContactForm();
+  initModeToggle();
   initThemeSwitcher();
 });
+
+function initModeToggle() {
+  const btn = document.getElementById('mode-toggle');
+  if (!btn) return;
+
+  function applyMode(mode) {
+    const root = document.documentElement;
+    const normalized = mode === 'light' ? 'light' : 'dark';
+    root.setAttribute('data-theme', normalized);
+    btn.setAttribute('aria-pressed', normalized === 'light' ? 'true' : 'false');
+    const icon = btn.querySelector('span[aria-hidden="true"]');
+    if (icon) {
+      icon.textContent = normalized === 'light' ? '☀️' : '🌙';
+    }
+    try {
+      localStorage.setItem('colorMode', normalized);
+    } catch (_) {
+      // ignore
+    }
+  }
+
+  function getStoredMode() {
+    try {
+      const stored = localStorage.getItem('colorMode');
+      if (stored === 'light' || stored === 'dark') return stored;
+    } catch (_) {
+      // ignore
+    }
+    return window.matchMedia && window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark';
+  }
+
+  applyMode(getStoredMode());
+
+  btn.addEventListener('click', function() {
+    const current = document.documentElement.getAttribute('data-theme') === 'light' ? 'light' : 'dark';
+    applyMode(current === 'light' ? 'dark' : 'light');
+  });
+}
 
 /**
  * 初始化导航栏功能
@@ -152,7 +191,7 @@ function initParticles() {
   if (!particlesContainer) return;
 
   // 创建粒子
-  const particleCount = window.innerWidth < 768 ? 20 : 50;
+  const particleCount = window.innerWidth < 768 ? 12 : 28;
   
   for (let i = 0; i < particleCount; i++) {
     createParticle(particlesContainer);
@@ -171,13 +210,15 @@ function createParticle(container) {
   particle.style.top = Math.random() * 100 + '%';
   
   // 随机大小
-  const size = Math.random() * 4 + 2;
+  const size = Math.random() * 2.5 + 1.2;
   particle.style.width = size + 'px';
   particle.style.height = size + 'px';
   
   // 随机颜色
+  const colorIndex = Math.floor(Math.random() * 4);
+  particle.dataset.colorIndex = String(colorIndex);
   const colors = ['#8B5CF6', '#06B6D4', '#F472B6', '#A78BFA'];
-  particle.style.background = colors[Math.floor(Math.random() * colors.length)];
+  particle.style.background = colors[colorIndex];
   
   // 随机动画延迟和持续时间
   particle.style.animationDelay = Math.random() * 6 + 's';
@@ -763,6 +804,29 @@ function initThemeSwitcher() {
   ];
 
   let currentThemeIndex = 0;
+  let nextThemeIndex = 0;
+  let cycleStartMs = 0;
+  const cycleDurationMs = (() => {
+    const raw = getComputedStyle(document.documentElement)
+      .getPropertyValue('--theme-cycle-duration-ms')
+      .trim() || getComputedStyle(document.documentElement)
+      .getPropertyValue('--theme-cycle-duration')
+      .trim();
+
+    if (raw) {
+      const m = raw.match(/^([0-9]*\.?[0-9]+)\s*(ms|s)?$/i);
+      if (m) {
+        const n = Number(m[1]);
+        const unit = (m[2] || 'ms').toLowerCase();
+        const ms = unit === 's' ? n * 1000 : n;
+        if (Number.isFinite(ms) && ms > 0) return ms;
+      }
+    }
+
+    return 3000;
+  })();
+  let rafId = null;
+  const themeToggleBtn = document.getElementById('theme-toggle');
   
   // Sort themes by color similarity for smooth transitions (Requirements: 1.1)
   // Uses nearest neighbor algorithm to ensure adjacent themes have hue difference <= 60 degrees
@@ -850,26 +914,9 @@ function initThemeSwitcher() {
    * @param {Object} theme - Theme configuration object
    * Requirements: 3.1, 3.2
    */
-  function updatePageBackground(theme) {
-    // Set CSS variables for background colors (these transition smoothly)
-    const root = document.documentElement;
-    root.style.setProperty('--bg-gradient', theme.bgGradient);
-    root.style.setProperty('--section-gradient-1', theme.sectionGradient1);
-    root.style.setProperty('--section-gradient-2', theme.sectionGradient2);
-    
-    // Use solid background colors for smooth transitions
-    // CSS gradients don't transition smoothly, so we use the base colors
-    document.body.style.backgroundColor = theme.bgColor1;
-    
-    // Apply background colors to primary sections (introduction, traits)
-    document.querySelectorAll('.introduction-section, .traits-section').forEach(el => {
-      el.style.backgroundColor = theme.bgColor1;
-    });
-    
-    // Apply background colors to secondary sections (hobbies, friendship, contact)
-    document.querySelectorAll('.hobbies-section, .friendship-section, .contact-section').forEach(el => {
-      el.style.backgroundColor = theme.bgColor2;
-    });
+  function updatePageBackground(_) {
+    // Background is controlled by CSS variables and mode (data-theme).
+    // Theme switching should not override light/dark base palettes.
   }
 
   function applyTheme(theme) {
@@ -885,12 +932,10 @@ function initThemeSwitcher() {
     root.style.setProperty('--color-accent-rgb', theme.accentRgb);
     root.style.setProperty('--gradient-primary', theme.gradient);
     root.style.setProperty('--shadow-glow', `0 0 30px rgba(${theme.primaryRgb}, 0.3)`);
-    root.style.setProperty('--color-background', theme.bgColor1);
-    root.style.setProperty('--color-background-secondary', theme.bgColor2);
-    root.style.setProperty('--bg-color-3', theme.bgColor3);
+    // Background-related vars are controlled by mode; do not override here
     root.style.setProperty('--glass-border', `rgba(${theme.primaryRgb}, 0.2)`);
     
-    // 更新body背景 - 使用新的updatePageBackground函数
+    // 更新body背景 - 由模式控制
     updatePageBackground(theme);
 
     // 更新导航栏 - 使用新的updateNavigationBar函数
@@ -898,7 +943,6 @@ function initThemeSwitcher() {
     
     const footer = document.querySelector('.site-footer');
     if (footer) {
-      footer.style.background = `linear-gradient(180deg, ${theme.bgColor2} 0%, ${theme.bgColor3} 100%)`;
       footer.style.borderTopColor = `rgba(${theme.primaryRgb}, 0.2)`;
     }
 
@@ -912,7 +956,8 @@ function initThemeSwitcher() {
 
     // 更新标题渐变色
     document.querySelectorAll('.intro-greeting').forEach(el => {
-      el.style.background = `linear-gradient(135deg, #fff 0%, ${theme.primaryLight} 50%, ${theme.accent} 100%)`;
+      const baseText = getComputedStyle(document.documentElement).getPropertyValue('--color-text').trim() || '#ffffff';
+      el.style.background = `linear-gradient(135deg, ${baseText} 0%, ${theme.primaryLight} 50%, ${theme.accent} 100%)`;
       el.style.webkitBackgroundClip = 'text';
       el.style.webkitTextFillColor = 'transparent';
       el.style.backgroundClip = 'text';
@@ -920,7 +965,8 @@ function initThemeSwitcher() {
 
     // 更新section标题
     document.querySelectorAll('.section-title').forEach(el => {
-      el.style.background = `linear-gradient(135deg, #fff 0%, ${theme.primaryLight} 100%)`;
+      const baseText = getComputedStyle(document.documentElement).getPropertyValue('--color-text').trim() || '#ffffff';
+      el.style.background = `linear-gradient(135deg, ${baseText} 0%, ${theme.primaryLight} 100%)`;
       el.style.webkitBackgroundClip = 'text';
       el.style.webkitTextFillColor = 'transparent';
       el.style.backgroundClip = 'text';
@@ -1076,15 +1122,265 @@ function initThemeSwitcher() {
     });
   }
 
-  function switchTheme() {
-    currentThemeIndex = (currentThemeIndex + 1) % sortedThemes.length;
-    applyTheme(sortedThemes[currentThemeIndex]);
+  function clamp01(t) {
+    return t < 0 ? 0 : t > 1 ? 1 : t;
   }
 
-  // 初始应用第一个主题（使用排序后的主题队列）
-  applyTheme(sortedThemes[0]);
+  function easeInOutCubic(t) {
+    const x = clamp01(t);
+    return x < 0.5 ? 4 * x * x * x : 1 - Math.pow(-2 * x + 2, 3) / 2;
+  }
 
-  // 每3秒切换一次主题（2秒渐变 + 1秒停留）
-  // Requirements: 1.2 (2s transition), 1.3 (1s minimum hold time)
-  setInterval(switchTheme, 3000);
+  function parseHex(hex) {
+    const normalized = String(hex || '').replace(/^#/, '');
+    const full = normalized.length === 3
+      ? normalized.split('').map(ch => ch + ch).join('')
+      : normalized;
+    return {
+      r: parseInt(full.slice(0, 2), 16) || 0,
+      g: parseInt(full.slice(2, 4), 16) || 0,
+      b: parseInt(full.slice(4, 6), 16) || 0
+    };
+  }
+
+  function rgbToHsl(r, g, b) {
+    const rr = (r || 0) / 255;
+    const gg = (g || 0) / 255;
+    const bb = (b || 0) / 255;
+
+    const max = Math.max(rr, gg, bb);
+    const min = Math.min(rr, gg, bb);
+    const delta = max - min;
+
+    let h = 0;
+    let s = 0;
+    const l = (max + min) / 2;
+
+    if (delta !== 0) {
+      s = delta / (1 - Math.abs(2 * l - 1));
+      switch (max) {
+        case rr:
+          h = ((gg - bb) / delta) % 6;
+          break;
+        case gg:
+          h = (bb - rr) / delta + 2;
+          break;
+        default:
+          h = (rr - gg) / delta + 4;
+          break;
+      }
+      h *= 60;
+      if (h < 0) h += 360;
+    }
+
+    return { h, s: s * 100, l: l * 100 };
+  }
+
+  function hslToRgb(h, s, l) {
+    const hh = ((h % 360) + 360) % 360;
+    const ss = Math.max(0, Math.min(100, s)) / 100;
+    const ll = Math.max(0, Math.min(100, l)) / 100;
+
+    const c = (1 - Math.abs(2 * ll - 1)) * ss;
+    const x = c * (1 - Math.abs(((hh / 60) % 2) - 1));
+    const m = ll - c / 2;
+
+    let r1 = 0, g1 = 0, b1 = 0;
+
+    if (hh < 60) {
+      r1 = c; g1 = x; b1 = 0;
+    } else if (hh < 120) {
+      r1 = x; g1 = c; b1 = 0;
+    } else if (hh < 180) {
+      r1 = 0; g1 = c; b1 = x;
+    } else if (hh < 240) {
+      r1 = 0; g1 = x; b1 = c;
+    } else if (hh < 300) {
+      r1 = x; g1 = 0; b1 = c;
+    } else {
+      r1 = c; g1 = 0; b1 = x;
+    }
+
+    return {
+      r: Math.round((r1 + m) * 255),
+      g: Math.round((g1 + m) * 255),
+      b: Math.round((b1 + m) * 255)
+    };
+  }
+
+  function rgbToHex(r, g, b) {
+    const toHex = (n) => {
+      const v = Math.max(0, Math.min(255, Math.round(n)));
+      return v.toString(16).padStart(2, '0');
+    };
+    return `#${toHex(r)}${toHex(g)}${toHex(b)}`;
+  }
+
+  function lerp(a, b, t) {
+    return a + (b - a) * t;
+  }
+
+  function lerpColor(hexA, hexB, t) {
+    const aRgb = parseHex(hexA);
+    const bRgb = parseHex(hexB);
+    const a = rgbToHsl(aRgb.r, aRgb.g, aRgb.b);
+    const b = rgbToHsl(bRgb.r, bRgb.g, bRgb.b);
+
+    const dh = ((((b.h - a.h) % 360) + 540) % 360) - 180;
+    const h = a.h + dh * t;
+    const s = lerp(a.s, b.s, t);
+    const l = lerp(a.l, b.l, t);
+
+    const rgb = hslToRgb(h, s, l);
+    return rgbToHex(rgb.r, rgb.g, rgb.b);
+  }
+
+  function rgbStringFromHex(hex) {
+    const rgb = parseHex(hex);
+    return `${rgb.r}, ${rgb.g}, ${rgb.b}`;
+  }
+
+  function interpolateTheme(a, b, t) {
+    const primary = lerpColor(a.primary, b.primary, t);
+    const secondary = lerpColor(a.secondary, b.secondary, t);
+    const accent = lerpColor(a.accent, b.accent, t);
+    const primaryLight = lerpColor(a.primaryLight, b.primaryLight, t);
+
+    const primaryRgb = rgbStringFromHex(primary);
+    const secondaryRgb = rgbStringFromHex(secondary);
+    const accentRgb = rgbStringFromHex(accent);
+
+    return {
+      primary,
+      primaryLight,
+      primaryRgb,
+      secondary,
+      secondaryRgb,
+      accent,
+      accentRgb,
+      gradient: `linear-gradient(135deg, ${primary} 0%, ${accent} 100%)`,
+      glowColor1: lerpColor(a.glowColor1, b.glowColor1, t),
+      glowColor2: lerpColor(a.glowColor2, b.glowColor2, t),
+      glowColor3: lerpColor(a.glowColor3, b.glowColor3, t)
+    };
+  }
+
+  function getStoredIndex() {
+    try {
+      const raw = localStorage.getItem('themeIndex');
+      const idx = raw == null ? NaN : Number(raw);
+      if (Number.isFinite(idx) && idx >= 0 && idx < sortedThemes.length) return idx;
+    } catch (_) {
+      // ignore
+    }
+    return 0;
+  }
+
+  const cachedHeader = document.querySelector('.site-header');
+  const cachedGlowOrbs = Array.from(document.querySelectorAll('.glow-orb'));
+
+  function updateNavigationBarSmooth(theme) {
+    if (!cachedHeader) return;
+
+    const isLight = document.documentElement.getAttribute('data-theme') === 'light';
+    const a1 = isLight ? 0.10 : 0.20;
+    const a2 = isLight ? 0.08 : 0.15;
+
+    cachedHeader.style.backgroundColor = `rgba(${theme.primaryRgb}, ${a1})`;
+    cachedHeader.style.background = `linear-gradient(135deg, rgba(${theme.primaryRgb}, ${a1}) 0%, rgba(${theme.secondaryRgb}, ${a2}) 100%)`;
+    cachedHeader.style.backdropFilter = 'blur(20px)';
+    cachedHeader.style.webkitBackdropFilter = 'blur(20px)';
+    cachedHeader.style.borderBottomColor = `rgba(${theme.primaryRgb}, ${isLight ? 0.12 : 0.2})`;
+  }
+
+  function updateGlowAndParticlesSmooth(theme) {
+    if (cachedGlowOrbs.length > 0) {
+      cachedGlowOrbs.forEach((orb, index) => {
+        if (index === 0) orb.style.background = theme.glowColor1;
+        if (index === 1) orb.style.background = theme.glowColor2;
+        if (index === 2) orb.style.background = theme.glowColor3;
+      });
+    }
+
+    const particles = document.querySelectorAll('.particle');
+    const palette = [theme.primary, theme.secondary, theme.accent, theme.primaryLight];
+    particles.forEach((p) => {
+      const idx = Number(p.dataset.colorIndex);
+      const safeIdx = Number.isFinite(idx) ? idx % palette.length : 0;
+      p.style.background = palette[safeIdx];
+    });
+  }
+
+  function applyThemeVars(theme) {
+    const root = document.documentElement;
+
+    root.style.setProperty('--color-primary', theme.primary);
+    root.style.setProperty('--color-primary-light', theme.primaryLight);
+    root.style.setProperty('--color-primary-rgb', theme.primaryRgb);
+    root.style.setProperty('--color-secondary', theme.secondary);
+    root.style.setProperty('--color-secondary-rgb', theme.secondaryRgb);
+    root.style.setProperty('--color-accent', theme.accent);
+    root.style.setProperty('--color-accent-rgb', theme.accentRgb);
+    root.style.setProperty('--gradient-primary', theme.gradient);
+    root.style.setProperty('--shadow-glow', `0 0 30px rgba(${theme.primaryRgb}, 0.3)`);
+    root.style.setProperty('--glass-border', `rgba(${theme.primaryRgb}, 0.2)`);
+
+    updateNavigationBarSmooth(theme);
+    updateGlowAndParticlesSmooth(theme);
+  }
+
+  function storeThemeIndex(idx) {
+    try {
+      localStorage.setItem('themeIndex', String(idx));
+    } catch (_) {
+      // ignore
+    }
+  }
+
+  function loop(nowMs) {
+    const t = (nowMs - cycleStartMs) / cycleDurationMs;
+    const eased = easeInOutCubic(t);
+    const a = sortedThemes[currentThemeIndex];
+    const b = sortedThemes[nextThemeIndex];
+    const mixed = interpolateTheme(a, b, eased);
+    applyThemeVars(mixed);
+
+    if (t >= 1) {
+      currentThemeIndex = nextThemeIndex;
+      nextThemeIndex = (currentThemeIndex + 1) % sortedThemes.length;
+      cycleStartMs = nowMs;
+      storeThemeIndex(currentThemeIndex);
+    }
+
+    rafId = requestAnimationFrame(loop);
+  }
+
+  function startAutoCycle() {
+    if (rafId != null) return;
+    cycleStartMs = performance.now();
+    rafId = requestAnimationFrame(loop);
+    if (themeToggleBtn) themeToggleBtn.setAttribute('aria-pressed', 'true');
+  }
+
+  function stopAutoCycle() {
+    if (rafId == null) return;
+    cancelAnimationFrame(rafId);
+    rafId = null;
+    if (themeToggleBtn) themeToggleBtn.setAttribute('aria-pressed', 'false');
+  }
+
+  // 初始主题索引
+  currentThemeIndex = getStoredIndex();
+  nextThemeIndex = (currentThemeIndex + 1) % sortedThemes.length;
+
+  // 默认开启自动丝滑渐变
+  startAutoCycle();
+
+  // 允许点击 🎨 暂停/继续（不再用于手动跳变）
+  if (themeToggleBtn) {
+    themeToggleBtn.addEventListener('click', function() {
+      if (rafId == null) startAutoCycle();
+      else stopAutoCycle();
+    });
+  }
 }

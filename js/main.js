@@ -490,6 +490,12 @@ function initContactForm() {
         body: JSON.stringify(formData)
       });
 
+      const contentType = response.headers.get('content-type') || '';
+      if (!contentType.includes('application/json')) {
+        await response.text().catch(() => undefined);
+        throw new Error(`接口返回异常（${response.status}）`);
+      }
+
       const result = await response.json();
 
       if (response.ok && result.success) {
@@ -500,7 +506,7 @@ function initContactForm() {
       }
     } catch (error) {
       console.error('发送邮件失败:', error);
-      showStatus('error', '发送失败，请稍后重试');
+      showStatus('error', (error && error.message) ? error.message : '发送失败，请稍后重试');
     } finally {
       submitBtn.classList.remove('loading');
       submitBtn.disabled = false;

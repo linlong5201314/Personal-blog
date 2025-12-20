@@ -133,9 +133,23 @@ module.exports = async (req, res) => {
 
   } catch (error) {
     console.error('发送邮件失败:', error);
+
+    const errorCode = error && error.code ? String(error.code) : undefined;
+    const errorMessage = error && error.message ? String(error.message) : '';
+
+    let clientMessage = '发送失败，请稍后重试';
+    if (errorMessage.includes('Missing EMAIL_USER or EMAIL_PASS')) {
+      clientMessage = '服务端未配置邮箱环境变量（EMAIL_USER / EMAIL_PASS）';
+    } else if (errorCode === 'EAUTH') {
+      clientMessage = 'SMTP 认证失败：请检查 163 邮箱授权码是否正确';
+    } else if (errorCode === 'ECONNECTION' || errorCode === 'ETIMEDOUT' || errorCode === 'ESOCKET') {
+      clientMessage = '邮件服务连接失败：可能是 Vercel 环境限制 SMTP 出站端口（建议改用邮件服务的 HTTP API）';
+    }
+
     res.status(500).json({
       success: false,
-      message: '发送失败，请稍后重试'
+      message: clientMessage,
+      errorCode
     });
   }
 };

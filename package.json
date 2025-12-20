@@ -6,7 +6,9 @@
     "start": "node server.js",
     "dev": "node server.js",
     "test": "npx playwright test",
-    "test:e2e": "npx playwright test tests/e2e/"
+    "test:e2e": "npx playwright test tests/e2e/",
+    "test:unit": "vitest run tests/unit/",
+    "test:property": "vitest run tests/property/"
   },
   "dependencies": {
     "express": "^4.18.2",
@@ -14,6 +16,8 @@
   },
   "devDependencies": {
     "@playwright/test": "^1.40.0",
-    "serve": "^14.2.5"
+    "fast-check": "^4.5.0",
+    "serve": "^14.2.5",
+    "vitest": "^4.0.16"
   }
 }

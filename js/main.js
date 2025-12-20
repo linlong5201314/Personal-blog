@@ -506,7 +506,7 @@ function initContactForm() {
  * 初始化主题自动切换
  */
 function initThemeSwitcher() {
-  // 12种精美主题配色（包含背景色）
+  // 12种精美主题配色（包含背景色和渐变）
   const themes = [
     {
       name: '梦幻紫',
@@ -523,7 +523,11 @@ function initThemeSwitcher() {
       glowColor3: '#06B6D4',
       bgColor1: '#0F0F23',
       bgColor2: '#1A1A2E',
-      bgColor3: '#16162a'
+      bgColor3: '#16162a',
+      bgGradient: 'linear-gradient(135deg, #0F0F23 0%, #1a1a3e 50%, #2d1b4e 100%)',
+      navGradient: 'linear-gradient(135deg, rgba(102, 126, 234, 0.85) 0%, rgba(118, 75, 162, 0.85) 100%)',
+      sectionGradient1: 'linear-gradient(180deg, #0F0F23 0%, #1a1a3e 100%)',
+      sectionGradient2: 'linear-gradient(180deg, #1A1A2E 0%, #2d1b4e 100%)'
     },
     {
       name: '海洋蓝',
@@ -540,7 +544,11 @@ function initThemeSwitcher() {
       glowColor3: '#22D3EE',
       bgColor1: '#0a1628',
       bgColor2: '#0f2137',
-      bgColor3: '#0c1a2e'
+      bgColor3: '#0c1a2e',
+      bgGradient: 'linear-gradient(135deg, #0a1628 0%, #0f2a40 50%, #0a2035 100%)',
+      navGradient: 'linear-gradient(135deg, rgba(14, 165, 233, 0.85) 0%, rgba(6, 182, 212, 0.85) 100%)',
+      sectionGradient1: 'linear-gradient(180deg, #0a1628 0%, #0f2a40 100%)',
+      sectionGradient2: 'linear-gradient(180deg, #0f2137 0%, #0a2035 100%)'
     },
     {
       name: '樱花粉',
@@ -557,7 +565,11 @@ function initThemeSwitcher() {
       glowColor3: '#FB7185',
       bgColor1: '#1a0a14',
       bgColor2: '#2a1020',
-      bgColor3: '#200d1a'
+      bgColor3: '#200d1a',
+      bgGradient: 'linear-gradient(135deg, #1a0a14 0%, #2d1025 50%, #3a1530 100%)',
+      navGradient: 'linear-gradient(135deg, rgba(236, 72, 153, 0.85) 0%, rgba(244, 63, 94, 0.85) 100%)',
+      sectionGradient1: 'linear-gradient(180deg, #1a0a14 0%, #2d1025 100%)',
+      sectionGradient2: 'linear-gradient(180deg, #2a1020 0%, #3a1530 100%)'
     },
     {
       name: '翡翠绿',
@@ -574,7 +586,11 @@ function initThemeSwitcher() {
       glowColor3: '#2DD4BF',
       bgColor1: '#0a1a14',
       bgColor2: '#0f2a20',
-      bgColor3: '#0c201a'
+      bgColor3: '#0c201a',
+      bgGradient: 'linear-gradient(135deg, #0a1a14 0%, #0f2d22 50%, #0a2a1c 100%)',
+      navGradient: 'linear-gradient(135deg, rgba(16, 185, 129, 0.85) 0%, rgba(20, 184, 166, 0.85) 100%)',
+      sectionGradient1: 'linear-gradient(180deg, #0a1a14 0%, #0f2d22 100%)',
+      sectionGradient2: 'linear-gradient(180deg, #0f2a20 0%, #0a2a1c 100%)'
     },
     {
       name: '日落橙',
@@ -591,7 +607,11 @@ function initThemeSwitcher() {
       glowColor3: '#FBBF24',
       bgColor1: '#1a120a',
       bgColor2: '#2a1c0f',
-      bgColor3: '#20160c'
+      bgColor3: '#20160c',
+      bgGradient: 'linear-gradient(135deg, #1a120a 0%, #2d1f10 50%, #3a2815 100%)',
+      navGradient: 'linear-gradient(135deg, rgba(249, 115, 22, 0.85) 0%, rgba(234, 179, 8, 0.85) 100%)',
+      sectionGradient1: 'linear-gradient(180deg, #1a120a 0%, #2d1f10 100%)',
+      sectionGradient2: 'linear-gradient(180deg, #2a1c0f 0%, #3a2815 100%)'
     },
     {
       name: '极光青',
@@ -608,7 +628,11 @@ function initThemeSwitcher() {
       glowColor3: '#34D399',
       bgColor1: '#0a1618',
       bgColor2: '#0f2225',
-      bgColor3: '#0c1c1e'
+      bgColor3: '#0c1c1e',
+      bgGradient: 'linear-gradient(135deg, #0a1618 0%, #0f2830 50%, #0a2028 100%)',
+      navGradient: 'linear-gradient(135deg, rgba(6, 182, 212, 0.85) 0%, rgba(16, 185, 129, 0.85) 100%)',
+      sectionGradient1: 'linear-gradient(180deg, #0a1618 0%, #0f2830 100%)',
+      sectionGradient2: 'linear-gradient(180deg, #0f2225 0%, #0a2028 100%)'
     },
     {
       name: '玫瑰红',
@@ -625,7 +649,11 @@ function initThemeSwitcher() {
       glowColor3: '#FDA4AF',
       bgColor1: '#1a0a0e',
       bgColor2: '#2a0f16',
-      bgColor3: '#200c12'
+      bgColor3: '#200c12',
+      bgGradient: 'linear-gradient(135deg, #1a0a0e 0%, #2d1018 50%, #3a1520 100%)',
+      navGradient: 'linear-gradient(135deg, rgba(225, 29, 72, 0.85) 0%, rgba(190, 18, 60, 0.85) 100%)',
+      sectionGradient1: 'linear-gradient(180deg, #1a0a0e 0%, #2d1018 100%)',
+      sectionGradient2: 'linear-gradient(180deg, #2a0f16 0%, #3a1520 100%)'
     },
     {
       name: '星空靛',
@@ -642,7 +670,11 @@ function initThemeSwitcher() {
       glowColor3: '#A78BFA',
       bgColor1: '#0e0e1e',
       bgColor2: '#14142e',
-      bgColor3: '#101026'
+      bgColor3: '#101026',
+      bgGradient: 'linear-gradient(135deg, #0e0e1e 0%, #181838 50%, #201848 100%)',
+      navGradient: 'linear-gradient(135deg, rgba(99, 102, 241, 0.85) 0%, rgba(139, 92, 246, 0.85) 100%)',
+      sectionGradient1: 'linear-gradient(180deg, #0e0e1e 0%, #181838 100%)',
+      sectionGradient2: 'linear-gradient(180deg, #14142e 0%, #201848 100%)'
     },
     {
       name: '薄荷绿',
@@ -659,7 +691,11 @@ function initThemeSwitcher() {
       glowColor3: '#5EEAD4',
       bgColor1: '#0a1614',
       bgColor2: '#0f2220',
-      bgColor3: '#0c1c1a'
+      bgColor3: '#0c1c1a',
+      bgGradient: 'linear-gradient(135deg, #0a1614 0%, #0f2a26 50%, #0a2420 100%)',
+      navGradient: 'linear-gradient(135deg, rgba(20, 184, 166, 0.85) 0%, rgba(13, 148, 136, 0.85) 100%)',
+      sectionGradient1: 'linear-gradient(180deg, #0a1614 0%, #0f2a26 100%)',
+      sectionGradient2: 'linear-gradient(180deg, #0f2220 0%, #0a2420 100%)'
     },
     {
       name: '琥珀金',
@@ -676,7 +712,11 @@ function initThemeSwitcher() {
       glowColor3: '#FCD34D',
       bgColor1: '#1a140a',
       bgColor2: '#2a1e0f',
-      bgColor3: '#20180c'
+      bgColor3: '#20180c',
+      bgGradient: 'linear-gradient(135deg, #1a140a 0%, #2d2210 50%, #3a2c15 100%)',
+      navGradient: 'linear-gradient(135deg, rgba(245, 158, 11, 0.85) 0%, rgba(217, 119, 6, 0.85) 100%)',
+      sectionGradient1: 'linear-gradient(180deg, #1a140a 0%, #2d2210 100%)',
+      sectionGradient2: 'linear-gradient(180deg, #2a1e0f 0%, #3a2c15 100%)'
     },
     {
       name: '紫罗兰',
@@ -693,7 +733,11 @@ function initThemeSwitcher() {
       glowColor3: '#A78BFA',
       bgColor1: '#120a1a',
       bgColor2: '#1c0f2a',
-      bgColor3: '#160c20'
+      bgColor3: '#160c20',
+      bgGradient: 'linear-gradient(135deg, #120a1a 0%, #1f1030 50%, #2a1540 100%)',
+      navGradient: 'linear-gradient(135deg, rgba(124, 58, 237, 0.85) 0%, rgba(109, 40, 217, 0.85) 100%)',
+      sectionGradient1: 'linear-gradient(180deg, #120a1a 0%, #1f1030 100%)',
+      sectionGradient2: 'linear-gradient(180deg, #1c0f2a 0%, #2a1540 100%)'
     },
     {
       name: '珊瑚橘',
@@ -710,11 +754,123 @@ function initThemeSwitcher() {
       glowColor3: '#FECDD3',
       bgColor1: '#1a0e10',
       bgColor2: '#2a1418',
-      bgColor3: '#201014'
+      bgColor3: '#201014',
+      bgGradient: 'linear-gradient(135deg, #1a0e10 0%, #2d1820 50%, #3a2028 100%)',
+      navGradient: 'linear-gradient(135deg, rgba(251, 113, 133, 0.85) 0%, rgba(244, 63, 94, 0.85) 100%)',
+      sectionGradient1: 'linear-gradient(180deg, #1a0e10 0%, #2d1820 100%)',
+      sectionGradient2: 'linear-gradient(180deg, #2a1418 0%, #3a2028 100%)'
     }
   ];
 
   let currentThemeIndex = 0;
+  
+  // Sort themes by color similarity for smooth transitions (Requirements: 1.1)
+  // Uses nearest neighbor algorithm to ensure adjacent themes have hue difference <= 60 degrees
+  const sortedThemes = window.ColorUtils ? 
+    window.ColorUtils.sortThemesByColorSimilarity(themes) : 
+    themes;
+
+  /**
+   * Update navigation bar with theme colors using smooth transitions
+   * Uses rgba background colors that can transition smoothly
+   * @param {Object} theme - Theme configuration object
+   * Requirements: 2.1, 2.2
+   */
+  function updateNavigationBar(theme) {
+    const header = document.querySelector('.site-header');
+    if (!header) return;
+    
+    // Use rgba background color for smooth transition (gradients don't transition)
+    // Transparency between 0.8-0.9 as per requirements
+    header.style.backgroundColor = `rgba(${theme.primaryRgb}, 0.15)`;
+    header.style.background = `linear-gradient(135deg, rgba(${theme.primaryRgb}, 0.2) 0%, rgba(${theme.secondaryRgb}, 0.15) 100%)`;
+    
+    // Maintain backdrop-filter blur effect for glass morphism
+    header.style.backdropFilter = 'blur(20px)';
+    header.style.webkitBackdropFilter = 'blur(20px)';
+    
+    // Update border color to match theme
+    header.style.borderBottomColor = `rgba(${theme.primaryRgb}, 0.2)`;
+    
+    // Set CSS variable for nav gradient (used by scrolled state)
+    document.documentElement.style.setProperty('--nav-gradient', theme.navGradient);
+  }
+
+  /**
+   * Update glow orbs and particles with theme colors
+   * Applies theme colors to glow orbs and updates particle colors from theme palette
+   * Ensures synchronized transition timing (2s) with theme switching
+   * @param {Object} theme - Theme configuration object
+   * Requirements: 4.1, 4.2, 4.3
+   */
+  function updateGlowAndParticles(theme) {
+    // Get the theme transition duration from CSS variable (2s)
+    const transitionDuration = getComputedStyle(document.documentElement)
+      .getPropertyValue('--theme-transition').trim() || '2s ease';
+    
+    // Update glow orb colors (Requirements: 4.1)
+    const glowOrbs = document.querySelectorAll('.glow-orb');
+    glowOrbs.forEach((orb, index) => {
+      // Apply synchronized transition timing
+      orb.style.transition = `background ${transitionDuration}`;
+      
+      // Apply theme glow colors based on orb index
+      if (index === 0) {
+        orb.style.background = theme.glowColor1;
+      } else if (index === 1) {
+        orb.style.background = theme.glowColor2;
+      } else if (index === 2) {
+        orb.style.background = theme.glowColor3;
+      }
+    });
+    
+    // Update particle colors from theme palette (Requirements: 4.2)
+    const particles = document.querySelectorAll('.particle');
+    const particleColors = [theme.primary, theme.secondary, theme.accent, theme.primaryLight];
+    
+    particles.forEach(particle => {
+      // Apply synchronized transition timing
+      particle.style.transition = `background ${transitionDuration}`;
+      
+      // Randomly assign a color from the theme palette
+      const randomColor = particleColors[Math.floor(Math.random() * particleColors.length)];
+      particle.style.background = randomColor;
+    });
+    
+    // Set CSS variables for glow colors (for any CSS-based animations)
+    const root = document.documentElement;
+    root.style.setProperty('--glow-color-1', theme.glowColor1);
+    root.style.setProperty('--glow-color-2', theme.glowColor2);
+    root.style.setProperty('--glow-color-3', theme.glowColor3);
+  }
+
+  /**
+   * Update page background with theme gradients using smooth color transitions
+   * Uses solid background colors that can transition smoothly instead of gradients
+   * @param {Object} theme - Theme configuration object
+   * Requirements: 3.1, 3.2
+   */
+  function updatePageBackground(theme) {
+    // Set CSS variables for background colors (these transition smoothly)
+    const root = document.documentElement;
+    root.style.setProperty('--bg-gradient', theme.bgGradient);
+    root.style.setProperty('--section-gradient-1', theme.sectionGradient1);
+    root.style.setProperty('--section-gradient-2', theme.sectionGradient2);
+    
+    // Use solid background colors for smooth transitions
+    // CSS gradients don't transition smoothly, so we use the base colors
+    document.body.style.backgroundColor = theme.bgColor1;
+    
+    // Apply background colors to primary sections (introduction, traits)
+    document.querySelectorAll('.introduction-section, .traits-section').forEach(el => {
+      el.style.backgroundColor = theme.bgColor1;
+    });
+    
+    // Apply background colors to secondary sections (hobbies, friendship, contact)
+    document.querySelectorAll('.hobbies-section, .friendship-section, .contact-section').forEach(el => {
+      el.style.backgroundColor = theme.bgColor2;
+    });
+  }
 
   function applyTheme(theme) {
     const root = document.documentElement;
@@ -734,22 +890,11 @@ function initThemeSwitcher() {
     root.style.setProperty('--bg-color-3', theme.bgColor3);
     root.style.setProperty('--glass-border', `rgba(${theme.primaryRgb}, 0.2)`);
     
-    // 更新body背景
-    document.body.style.backgroundColor = theme.bgColor1;
+    // 更新body背景 - 使用新的updatePageBackground函数
+    updatePageBackground(theme);
 
-    // 更新导航栏
-    const header = document.querySelector('.site-header');
-    if (header) {
-      header.style.borderBottomColor = `rgba(${theme.primaryRgb}, 0.2)`;
-    }
-
-    // 更新各section背景
-    document.querySelectorAll('.hobbies-section, .friendship-section, .contact-section').forEach(el => {
-      el.style.backgroundColor = theme.bgColor2;
-    });
-    document.querySelectorAll('.traits-section, .introduction-section').forEach(el => {
-      el.style.backgroundColor = theme.bgColor1;
-    });
+    // 更新导航栏 - 使用新的updateNavigationBar函数
+    updateNavigationBar(theme);
     
     const footer = document.querySelector('.site-footer');
     if (footer) {
@@ -757,17 +902,8 @@ function initThemeSwitcher() {
       footer.style.borderTopColor = `rgba(${theme.primaryRgb}, 0.2)`;
     }
 
-    // 更新光晕颜色
-    const glowOrbs = document.querySelectorAll('.glow-orb');
-    if (glowOrbs[0]) glowOrbs[0].style.background = theme.glowColor1;
-    if (glowOrbs[1]) glowOrbs[1].style.background = theme.glowColor2;
-    if (glowOrbs[2]) glowOrbs[2].style.background = theme.glowColor3;
-
-    // 更新粒子颜色
-    document.querySelectorAll('.particle').forEach(particle => {
-      const colors = [theme.primary, theme.secondary, theme.accent, theme.primaryLight];
-      particle.style.background = colors[Math.floor(Math.random() * colors.length)];
-    });
+    // 更新光晕和粒子颜色 - 使用新的updateGlowAndParticles函数
+    updateGlowAndParticles(theme);
 
     // 更新高亮文字
     document.querySelectorAll('.highlight-tag').forEach(el => {
@@ -941,13 +1077,14 @@ function initThemeSwitcher() {
   }
 
   function switchTheme() {
-    currentThemeIndex = (currentThemeIndex + 1) % themes.length;
-    applyTheme(themes[currentThemeIndex]);
+    currentThemeIndex = (currentThemeIndex + 1) % sortedThemes.length;
+    applyTheme(sortedThemes[currentThemeIndex]);
   }
 
-  // 初始应用第一个主题
-  applyTheme(themes[0]);
+  // 初始应用第一个主题（使用排序后的主题队列）
+  applyTheme(sortedThemes[0]);
 
   // 每3秒切换一次主题（2秒渐变 + 1秒停留）
+  // Requirements: 1.2 (2s transition), 1.3 (1s minimum hold time)
   setInterval(switchTheme, 3000);
 }

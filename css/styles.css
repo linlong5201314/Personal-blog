@@ -139,6 +139,12 @@
   --bg-color-2: #1A1A2E;
   --bg-color-3: #16162a;
   
+  /* 背景渐变 - 会被JS动态修改 */
+  --bg-gradient: linear-gradient(135deg, #0F0F23 0%, #1a1a3e 50%, #2d1b4e 100%);
+  --nav-gradient: linear-gradient(135deg, rgba(102, 126, 234, 0.85) 0%, rgba(118, 75, 162, 0.85) 100%);
+  --section-gradient-1: linear-gradient(180deg, #0F0F23 0%, #1a1a3e 100%);
+  --section-gradient-2: linear-gradient(180deg, #1A1A2E 0%, #2d1b4e 100%);
+  
   /* 动画 */
   --transition-fast: 0.2s;
   --transition-normal: 0.3s;
@@ -176,6 +182,7 @@
 }
 
 /* 主题过渡效果 - 应用到所有颜色相关属性 */
+/* 注意：CSS渐变(gradient)不能直接过渡，所以使用background-color来实现平滑过渡 */
 body,
 body::before,
 .site-header,
@@ -216,7 +223,12 @@ body::before,
 .trait-card::before,
 .friend-type-card::before {
   transition: 
-    all 2s ease !important;
+    background-color 2s ease,
+    color 2s ease,
+    border-color 2s ease,
+    box-shadow 2s ease,
+    filter 2s ease,
+    opacity 2s ease !important;
 }
 
 html {
@@ -228,7 +240,7 @@ body {
   font-size: var(--font-size-base);
   line-height: var(--line-height);
   color: var(--color-text);
-  background: var(--color-background);
+  background: var(--bg-gradient);
   overflow-x: hidden;
   min-height: 100vh;
 }
@@ -775,7 +787,7 @@ button:focus-visible {
 .hobbies-section {
   padding: var(--spacing-2xl) var(--spacing-md);
   position: relative;
-  background: var(--color-background-secondary);
+  background: var(--section-gradient-2);
 }
 
 .hobbies-section::before {
@@ -971,7 +983,7 @@ button:focus-visible {
 .traits-section {
   padding: var(--spacing-2xl) var(--spacing-md);
   position: relative;
-  background: var(--color-background);
+  background: var(--section-gradient-1);
 }
 
 .traits-section::before {
@@ -1130,7 +1142,7 @@ button:focus-visible {
 .friendship-section {
   padding: var(--spacing-2xl) var(--spacing-md);
   position: relative;
-  background: var(--color-background-secondary);
+  background: var(--section-gradient-2);
 }
 
 .friendship-section::before {
@@ -1534,7 +1546,7 @@ button:focus-visible {
 .contact-section {
   padding: var(--spacing-2xl) var(--spacing-md);
   position: relative;
-  background: var(--color-background);
+  background: var(--section-gradient-2);
 }
 
 .contact-section::before {

@@ -1,0 +1,202 @@
+# Page snapshot
+
+```yaml
+- generic [ref=e1]:
+  - link "跳转到主内容" [ref=e2] [cursor=pointer]:
+    - /url: "#main-content"
+  - banner [ref=e3]:
+    - navigation "主导航" [ref=e4]:
+      - link "我的小天地 - 返回首页" [ref=e6] [cursor=pointer]:
+        - /url: "#introduction"
+        - text: ✨ 我的小天地
+      - menubar "页面导航" [ref=e7]:
+        - menuitem "关于我" [ref=e8] [cursor=pointer]
+        - menuitem "兴趣爱好" [ref=e9] [cursor=pointer]
+        - menuitem "个人特质" [ref=e10] [cursor=pointer]
+        - menuitem "交友期望" [ref=e11] [cursor=pointer]
+        - menuitem "联系我" [ref=e12] [cursor=pointer]
+  - main [ref=e13]:
+    - region "嗨～欢迎来到我的小天地！ 🌟" [ref=e14]:
+      - generic [ref=e15]:
+        - heading "嗨～欢迎来到我的小天地！ 🌟" [level=1] [ref=e16]
+        - generic [ref=e17]:
+          - paragraph [ref=e18]: 我是一个热爱生活、喜欢交朋友的人。平时喜欢打打 羽毛球、跑跑步，也爱刷 抖音、追剧，偶尔还会玩玩 王者荣耀。最近对 AI特别感兴趣，喜欢捣鼓各种AI小玩意。
+          - paragraph [ref=e19]: 性格上，我待人 友好，乐于交流和帮助他人；做事有 耐心，喜欢慢慢琢磨解决问题；对在意的人特别 重视羁绊，会用心维护每一段珍贵的关系。
+          - paragraph [ref=e20]: 如果你也喜欢聊技术、打游戏，或者只是想找个人唠唠嗑，欢迎来认识我！
+        - list "兴趣标签" [ref=e21]:
+          - listitem [ref=e22]: 🏃 运动达人
+          - listitem [ref=e23]: 🎮 娱乐爱好者
+          - listitem [ref=e24]: 🤖 AI探索者
+          - listitem [ref=e25]: 💖 友善热情
+        - link "跳转到联系我" [ref=e26] [cursor=pointer]:
+          - /url: "#contact"
+          - generic [ref=e28]: 💬
+          - generic [ref=e29]: 与我聊天
+    - region "兴趣爱好" [ref=e30]:
+      - generic [ref=e31]:
+        - heading "兴趣爱好" [level=2] [ref=e32]
+        - list "兴趣爱好分类" [ref=e33]:
+          - listitem "运动类" [ref=e34] [cursor=pointer]:
+            - generic [ref=e36]: 🏃
+            - heading "运动类" [level=3] [ref=e37]
+            - list "运动类爱好列表" [ref=e38]:
+              - listitem [ref=e39]:
+                - generic [ref=e40]: 🏸
+                - generic [ref=e41]:
+                  - generic [ref=e42]: 羽毛球
+                  - paragraph [ref=e43]: 喜欢和朋友切磋，享受挥拍的快感
+              - listitem [ref=e44]:
+                - generic [ref=e45]: 🏃‍♂️
+                - generic [ref=e46]:
+                  - generic [ref=e47]: 跑步
+                  - paragraph [ref=e48]: 晨跑或夜跑，保持活力的好方式
+              - listitem [ref=e49]:
+                - generic [ref=e50]: 🏊
+                - generic [ref=e51]:
+                  - generic [ref=e52]: 游泳
+                  - paragraph [ref=e53]: 夏天最爱的运动，清凉又解压
+          - listitem "休闲类" [ref=e54] [cursor=pointer]:
+            - generic [ref=e56]: 🎮
+            - heading "休闲类" [level=3] [ref=e57]
+            - list "休闲类爱好列表" [ref=e58]:
+              - listitem [ref=e59]:
+                - generic [ref=e60]: 📱
+                - generic [ref=e61]:
+                  - generic [ref=e62]: 刷抖音
+                  - paragraph [ref=e63]: 发现有趣的内容，放松心情
+              - listitem [ref=e64]:
+                - generic [ref=e65]: 📺
+                - generic [ref=e66]:
+                  - generic [ref=e67]: 追剧
+                  - paragraph [ref=e68]: 沉浸在精彩的故事世界里
+              - listitem [ref=e69]:
+                - generic [ref=e70]: 👑
+                - generic [ref=e71]:
+                  - generic [ref=e72]: 王者荣耀
+                  - paragraph [ref=e73]: 和朋友开黑，享受团队配合的乐趣
+              - listitem [ref=e74]:
+                - generic [ref=e75]: 🎵
+                - generic [ref=e76]:
+                  - generic [ref=e77]: 听音乐
+                  - paragraph [ref=e78]: 各种风格都听，音乐是生活的调味剂
+          - listitem "技术类" [ref=e79] [cursor=pointer]:
+            - generic [ref=e81]: 🤖
+            - heading "技术类" [level=3] [ref=e82]
+            - list "技术类爱好列表" [ref=e83]:
+              - listitem [ref=e84]:
+                - generic [ref=e85]: ✨
+                - generic [ref=e86]:
+                  - generic [ref=e87]: AI小玩意
+                  - paragraph [ref=e88]: 喜欢探索各种AI工具，动手尝试新技术
+              - listitem [ref=e89]:
+                - generic [ref=e90]: 💻
+                - generic [ref=e91]:
+                  - generic [ref=e92]: 编程开发
+                  - paragraph [ref=e93]: 用代码创造有趣的东西，享受创作的乐趣
+              - listitem [ref=e94]:
+                - generic [ref=e95]: 📚
+                - generic [ref=e96]:
+                  - generic [ref=e97]: 学习新技术
+                  - paragraph [ref=e98]: 保持好奇心，不断学习新知识
+    - region "个人特质" [ref=e99]:
+      - generic [ref=e100]:
+        - heading "个人特质" [level=2] [ref=e101]
+        - list "个人特质列表" [ref=e102]:
+          - listitem "待人友好" [ref=e103] [cursor=pointer]:
+            - generic [ref=e105]: 😊
+            - heading "待人友好" [level=3] [ref=e106]
+            - paragraph [ref=e107]: 乐于交流，喜欢和不同的人聊天分享。遇到朋友有困难，总是愿意伸出援手，能帮就帮。相信真诚待人，才能收获真心。
+          - listitem "有耐心" [ref=e108] [cursor=pointer]:
+            - generic [ref=e110]: 🧩
+            - heading "有耐心" [level=3] [ref=e111]
+            - paragraph [ref=e112]: 做事不急躁，喜欢慢慢琢磨问题。遇到难题不会轻易放弃，愿意花时间一步步找到解决方案。享受攻克难关的成就感。
+          - listitem "重视羁绊" [ref=e113] [cursor=pointer]:
+            - generic [ref=e115]: 💝
+            - heading "重视羁绊" [level=3] [ref=e116]
+            - paragraph [ref=e117]: 对在意的人特别上心，会用心维护每一段珍贵的关系。有点小占有欲，但这也是因为太在乎。希望和重要的人建立深厚的连接。
+          - listitem "好奇心强" [ref=e118] [cursor=pointer]:
+            - generic [ref=e120]: 🔍
+            - heading "好奇心强" [level=3] [ref=e121]
+            - paragraph [ref=e122]: 对新鲜事物充满好奇，喜欢探索未知领域。看到有趣的东西就想研究一番，学习新技能让我感到兴奋和满足。
+    - region "交友期望" [ref=e123]:
+      - generic [ref=e124]:
+        - heading "交友期望" [level=2] [ref=e125]
+        - list "期望的朋友类型" [ref=e126]:
+          - listitem "技术伙伴" [ref=e127] [cursor=pointer]:
+            - generic [ref=e129]: 💻
+            - heading "技术伙伴" [level=3] [ref=e130]
+            - paragraph [ref=e131]: 希望找到志同道合的技术爱好者，一起探讨AI、编程等话题，分享学习心得，互相进步。不管是大佬还是小白，只要有热情就欢迎！
+          - listitem "玩伴" [ref=e132] [cursor=pointer]:
+            - generic [ref=e134]: 🎮
+            - heading "玩伴" [level=3] [ref=e135]
+            - paragraph [ref=e136]: 想找一起打羽毛球、跑步的运动搭子，或者一起开黑王者、追剧聊天的小伙伴。生活需要有趣的灵魂相伴！
+        - generic "我看重的品质" [ref=e137]:
+          - heading "我看重的品质" [level=3] [ref=e138]
+          - list "交友标准列表" [ref=e139]:
+            - listitem [ref=e140]:
+              - generic [ref=e141]: 💎
+              - generic [ref=e142]:
+                - generic [ref=e143]: 真诚
+                - paragraph [ref=e144]: 真心相待，不玩虚的，坦诚交流
+            - listitem [ref=e145]:
+              - generic [ref=e146]: 💬
+              - generic [ref=e147]:
+                - generic [ref=e148]: 共同话题
+                - paragraph [ref=e149]: 有聊不完的话题，相处不尴尬
+        - complementary "联系邀请" [ref=e150]:
+          - paragraph [ref=e151]: 如果你觉得我们可能聊得来...
+          - link "点击跳转到联系方式" [ref=e152] [cursor=pointer]:
+            - /url: "#contact"
+            - text: ✨ 欢迎来找我唠嗑
+  - region "联系我" [ref=e153]:
+    - generic [ref=e154]:
+      - heading "联系我" [level=2] [ref=e155]
+      - generic [ref=e156]:
+        - generic [ref=e157]:
+          - link "添加微信好友" [ref=e158] [cursor=pointer]:
+            - /url: weixin://dl/chat?wxlin52o1314
+            - generic [ref=e160]: 💬
+            - generic [ref=e161]:
+              - heading "微信" [level=3] [ref=e162]
+              - paragraph [ref=e163]: wxlin52o1314
+              - paragraph [ref=e164]: 点击复制微信号
+          - link "访问GitHub主页" [ref=e165] [cursor=pointer]:
+            - /url: https://github.com/linlong1314
+            - generic [ref=e167]: 💻
+            - generic [ref=e168]:
+              - heading "GitHub" [level=3] [ref=e169]
+              - paragraph [ref=e170]: linlong1314
+              - paragraph [ref=e171]: 点击访问主页
+          - link "发送邮件" [ref=e172] [cursor=pointer]:
+            - /url: mailto:linlongxiansheng@163.com
+            - generic [ref=e174]: 📧
+            - generic [ref=e175]:
+              - heading "邮箱" [level=3] [ref=e176]
+              - paragraph [ref=e177]: linlongxiansheng@163.com
+              - paragraph [ref=e178]: 点击发送邮件
+        - generic [ref=e179]:
+          - heading "📮 给我留言" [level=3] [ref=e180]
+          - form "联系表单" [ref=e181]:
+            - generic [ref=e182]:
+              - generic [ref=e183]: 你的名字
+              - textbox "你的名字" [ref=e184]:
+                - /placeholder: 请输入你的名字
+            - generic [ref=e185]:
+              - generic [ref=e186]: 你的邮箱
+              - textbox "你的邮箱" [ref=e187]:
+                - /placeholder: 请输入你的邮箱
+            - generic [ref=e188]:
+              - generic [ref=e189]: 主题
+              - textbox "主题" [ref=e190]:
+                - /placeholder: 请输入邮件主题
+            - generic [ref=e191]:
+              - generic [ref=e192]: 留言内容
+              - textbox "留言内容" [ref=e193]:
+                - /placeholder: 请输入你想说的话...
+            - button "✨ 发送留言" [active] [ref=e194] [cursor=pointer]
+  - contentinfo "页脚" [ref=e195]:
+    - paragraph [ref=e198]:
+      - text: ©
+      - generic [ref=e199]: 版权所有
+      - text: 2025 我的小天地. 期待与你相遇 💜
+```

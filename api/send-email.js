@@ -4,18 +4,41 @@
 
 const nodemailer = require('nodemailer');
 
-// 邮件配置
-const transporter = nodemailer.createTransport({
-  host: 'smtp.163.com',
-  port: 465,
-  secure: true,
-  auth: {
-    user: process.env.EMAIL_USER || 'm13136064359@163.com',
-    pass: process.env.EMAIL_PASS || 'XSTKpwH3WgtcPmiP'
+let transporter;
+
+function getTransporter() {
+  const emailUser = process.env.EMAIL_USER;
+  const emailPass = process.env.EMAIL_PASS;
+  const smtpHost = process.env.SMTP_HOST || 'smtp.163.com';
+  const smtpPort = Number(process.env.SMTP_PORT || 465);
+  const smtpSecure = process.env.SMTP_SECURE
+    ? process.env.SMTP_SECURE === 'true'
+    : smtpPort === 465;
+
+  if (!emailUser || !emailPass) {
+    throw new Error('Missing EMAIL_USER or EMAIL_PASS');
   }
-});
+
+  if (!transporter) {
+    transporter = nodemailer.createTransport({
+      host: smtpHost,
+      port: smtpPort,
+      secure: smtpSecure,
+      auth: {
+        user: emailUser,
+        pass: emailPass
+      }
+    });
+  }
+
+  return transporter;
+}
 
 module.exports = async (req, res) => {
+  if (req.method === 'OPTIONS') {
+    return res.status(200).end();
+  }
+
   // 只允许 POST 请求
   if (req.method !== 'POST') {
     return res.status(405).json({
@@ -25,7 +48,8 @@ module.exports = async (req, res) => {
   }
 
   try {
-    const { name, email, subject, message } = req.body;
+    const body = typeof req.body === 'string' ? JSON.parse(req.body) : (req.body || {});
+    const { name, email, subject, message } = body;
 
     // 验证必填字段
     if (!name || !email || !subject || !message) {
@@ -45,9 +69,11 @@ module.exports = async (req, res) => {
     }
 
     // 邮件内容
+    const emailUser = process.env.EMAIL_USER;
+    const emailTo = process.env.EMAIL_TO || 'linlongxiansheng@163.com';
     const mailOptions = {
-      from: `"我的小天地" <${process.env.EMAIL_USER || 'm13136064359@163.com'}>`,
-      to: process.env.EMAIL_TO || 'linlongxiansheng@163.com',
+      from: `"我的小天地" <${emailUser}>`,
+      to: emailTo,
       replyTo: email,
       subject: `[网站留言] ${subject}`,
       html: `
@@ -72,11 +98,11 @@ module.exports = async (req, res) => {
     };
 
     // 发送邮件
-    await transporter.sendMail(mailOptions);
+    await getTransporter().sendMail(mailOptions);
 
     // 发送自动回复给访客
     const autoReplyOptions = {
-      from: `"我的小天地" <${process.env.EMAIL_USER || 'm13136064359@163.com'}>`,
+      from: `"我的小天地" <${emailUser}>`,
       to: email,
       subject: '感谢你的留言！',
       html: `
@@ -96,7 +122,7 @@ module.exports = async (req, res) => {
     };
 
     // 发送自动回复（不阻塞响应）
-    transporter.sendMail(autoReplyOptions).catch(err => {
+    getTransporter().sendMail(autoReplyOptions).catch(err => {
       console.log('自动回复发送失败:', err);
     });
 

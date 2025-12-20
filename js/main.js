@@ -500,25 +500,7 @@ function initContactForm() {
       }
     } catch (error) {
       console.error('发送邮件失败:', error);
-      // 如果后端不可用，使用mailto作为降级方案
-      const mailtoLink = `mailto:linlongxiansheng@163.com?subject=${encodeURIComponent('[网站留言] ' + formData.subject)}&body=${encodeURIComponent(`来自: ${formData.name}\n邮箱: ${formData.email}\n\n${formData.message}`)}`;
-      
-      showStatus('error', '服务暂时不可用，点击下方按钮通过邮件客户端发送');
-      
-      // 添加备用发送按钮
-      const fallbackBtn = document.createElement('a');
-      fallbackBtn.href = mailtoLink;
-      fallbackBtn.className = 'form-submit';
-      fallbackBtn.style.display = 'inline-block';
-      fallbackBtn.style.marginTop = '10px';
-      fallbackBtn.style.textDecoration = 'none';
-      fallbackBtn.style.textAlign = 'center';
-      fallbackBtn.textContent = '📧 使用邮件客户端发送';
-      
-      if (!document.getElementById('fallback-btn')) {
-        fallbackBtn.id = 'fallback-btn';
-        statusDiv.after(fallbackBtn);
-      }
+      showStatus('error', '发送失败，请稍后重试');
     } finally {
       submitBtn.classList.remove('loading');
       submitBtn.disabled = false;
@@ -532,9 +514,7 @@ function initContactForm() {
     
     // 移除之前的备用按钮
     const oldFallback = document.getElementById('fallback-btn');
-    if (oldFallback && type === 'success') {
-      oldFallback.remove();
-    }
+    if (oldFallback) oldFallback.remove();
   }
 
   function isValidEmail(email) {

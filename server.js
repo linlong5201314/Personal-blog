@@ -14,25 +14,48 @@ const PORT = process.env.PORT || 3000;
 app.use(express.json());
 app.use(express.static(path.join(__dirname)));
 
-// 邮件配置
-const transporter = nodemailer.createTransport({
-  host: 'smtp.163.com',
-  port: 465,
-  secure: true,
-  auth: {
-    user: 'm13136064359@163.com',
-    pass: 'XSTKpwH3WgtcPmiP'
+let transporter;
+
+function getTransporter() {
+  const emailUser = process.env.EMAIL_USER;
+  const emailPass = process.env.EMAIL_PASS;
+  const smtpHost = process.env.SMTP_HOST || 'smtp.163.com';
+  const smtpPort = Number(process.env.SMTP_PORT || 465);
+  const smtpSecure = process.env.SMTP_SECURE
+    ? process.env.SMTP_SECURE === 'true'
+    : smtpPort === 465;
+
+  if (!emailUser || !emailPass) {
+    throw new Error('Missing EMAIL_USER or EMAIL_PASS');
   }
-});
+
+  if (!transporter) {
+    transporter = nodemailer.createTransport({
+      host: smtpHost,
+      port: smtpPort,
+      secure: smtpSecure,
+      auth: {
+        user: emailUser,
+        pass: emailPass
+      }
+    });
+  }
+
+  return transporter;
+}
 
 // 验证邮件配置
-transporter.verify(function(error, success) {
-  if (error) {
-    console.log('邮件服务配置错误:', error);
-  } else {
-    console.log('邮件服务已就绪');
-  }
-});
+try {
+  getTransporter().verify(function(error, success) {
+    if (error) {
+      console.log('邮件服务配置错误:', error);
+    } else {
+      console.log('邮件服务已就绪');
+    }
+  });
+} catch (error) {
+  console.log('邮件服务未配置:', error.message);
+}
 
 // 发送邮件API
 app.post('/api/send-email', async (req, res) => {
@@ -57,9 +80,11 @@ app.post('/api/send-email', async (req, res) => {
     }
 
     // 邮件内容
+    const emailUser = process.env.EMAIL_USER;
+    const emailTo = process.env.EMAIL_TO || 'linlongxiansheng@163.com';
     const mailOptions = {
-      from: '"我的小天地" <m13136064359@163.com>',
-      to: 'linlongxiansheng@163.com',
+      from: `"我的小天地" <${emailUser}>`,
+      to: emailTo,
       replyTo: email,
       subject: `[网站留言] ${subject}`,
       html: `
@@ -84,11 +109,11 @@ app.post('/api/send-email', async (req, res) => {
     };
 
     // 发送邮件
-    await transporter.sendMail(mailOptions);
+    await getTransporter().sendMail(mailOptions);
 
     // 发送自动回复给访客
     const autoReplyOptions = {
-      from: '"我的小天地" <m13136064359@163.com>',
+      from: `"我的小天地" <${emailUser}>`,
       to: email,
       subject: '感谢你的留言！',
       html: `
@@ -108,7 +133,7 @@ app.post('/api/send-email', async (req, res) => {
     };
 
     // 发送自动回复（不等待结果）
-    transporter.sendMail(autoReplyOptions).catch(err => {
+    getTransporter().sendMail(autoReplyOptions).catch(err => {
       console.log('自动回复发送失败:', err);
     });
 

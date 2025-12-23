@@ -197,8 +197,16 @@ function initParticles() {
   const particlesContainer = document.querySelector(".particles-bg");
   if (!particlesContainer) return;
 
-  // 创建粒子
-  const particleCount = window.innerWidth < 768 ? 12 : 28;
+  // 根据设备类型调整粒子数量
+  // 移动端大幅减少粒子以提升性能
+  let particleCount;
+  if (window.innerWidth < 768) {
+    particleCount = 6; // 移动端只用6个粒子
+  } else if (window.innerWidth < 1024) {
+    particleCount = 15; // 平板端用15个粒子
+  } else {
+    particleCount = 28; // 桌面端用28个粒子
+  }
 
   for (let i = 0; i < particleCount; i++) {
     createParticle(particlesContainer);
@@ -288,6 +296,12 @@ function initScrollAnimations() {
  * 初始化卡片鼠标跟随效果
  */
 function initCardEffects() {
+  // 仅在桌面端启用卡片3D效果（移动端和平板端禁用以提升性能）
+  if (window.innerWidth < 1024) return;
+
+  // 检测是否为触摸设备，触摸设备不启用
+  if ('ontouchstart' in window || navigator.maxTouchPoints > 0) return;
+
   const cards = document.querySelectorAll(
     ".hobby-card, .trait-card, .friend-type-card",
   );
@@ -326,8 +340,11 @@ function initCardEffects() {
  * 初始化鼠标光晕效果
  */
 function initCursorGlow() {
-  // 仅在桌面端启用
+  // 仅在桌面端启用（平板和移动端都禁用）
   if (window.innerWidth < 1024) return;
+
+  // 检测是否为触摸设备，触摸设备不启用
+  if ('ontouchstart' in window || navigator.maxTouchPoints > 0) return;
 
   const glow = document.createElement("div");
   glow.className = "cursor-glow";
@@ -1429,8 +1446,43 @@ function initThemeSwitcher() {
     }
   }
 
+  // loop 函数已被 loopOptimized 替代，保留空实现以防其他地方引用
   function loop(nowMs) {
-    const t = (nowMs - cycleStartMs) / cycleDurationMs;
+    loopOptimized(nowMs);
+  }
+
+  // 检测是否为移动端（宽度小于768px）
+  function isMobileDevice() {
+    return window.innerWidth < 768;
+  }
+
+  // 检测是否为平板端（宽度768px-1023px）
+  function isTabletDevice() {
+    return window.innerWidth >= 768 && window.innerWidth < 1024;
+  }
+
+  // 移动端使用更长的主题切换间隔，减少性能开销
+  function getMobileCycleDuration() {
+    // 移动端使用更长的间隔（10秒），减少动画频率
+    return isMobileDevice() ? 10000 : cycleDurationMs;
+  }
+
+  // 移动端优化的循环函数 - 降低更新频率
+  let lastMobileUpdate = 0;
+  const mobileUpdateInterval = 100; // 移动端每100ms更新一次，而不是每帧
+
+  function loopOptimized(nowMs) {
+    // 移动端降低更新频率
+    if (isMobileDevice()) {
+      if (nowMs - lastMobileUpdate < mobileUpdateInterval) {
+        rafId = requestAnimationFrame(loopOptimized);
+        return;
+      }
+      lastMobileUpdate = nowMs;
+    }
+
+    const duration = getMobileCycleDuration();
+    const t = (nowMs - cycleStartMs) / duration;
     const eased = easeInOutCubic(t);
     const a = sortedThemes[currentThemeIndex];
     const b = sortedThemes[nextThemeIndex];
@@ -1444,13 +1496,14 @@ function initThemeSwitcher() {
       storeThemeIndex(currentThemeIndex);
     }
 
-    rafId = requestAnimationFrame(loop);
+    rafId = requestAnimationFrame(loopOptimized);
   }
 
   function startAutoCycle() {
     if (rafId != null) return;
     cycleStartMs = performance.now();
-    rafId = requestAnimationFrame(loop);
+    lastMobileUpdate = cycleStartMs;
+    rafId = requestAnimationFrame(loopOptimized);
     if (themeToggleBtn) themeToggleBtn.setAttribute("aria-pressed", "true");
   }
 
@@ -1475,4 +1528,17 @@ function initThemeSwitcher() {
       else stopAutoCycle();
     });
   }
+
+  // 监听窗口大小变化，调整动画策略
+  let resizeTimeout;
+  window.addEventListener("resize", function () {
+    clearTimeout(resizeTimeout);
+    resizeTimeout = setTimeout(function () {
+      // 重置循环以应用新的时间间隔
+      if (rafId != null) {
+        stopAutoCycle();
+        startAutoCycle();
+      }
+    }, 250);
+  });
 }

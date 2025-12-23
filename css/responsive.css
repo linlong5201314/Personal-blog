@@ -8,25 +8,108 @@
    ======================================== */
 
 @media (max-width: 767px) {
+    /* 移动端性能优化 - 禁用或简化复杂动画 */
+    
+    /* 禁用极光背景动画，使用静态背景 */
+    body::after {
+        animation: none !important;
+        background: linear-gradient(
+            135deg,
+            rgba(139, 92, 246, 0.08) 0%,
+            rgba(6, 182, 212, 0.06) 50%,
+            rgba(244, 114, 182, 0.06) 100%
+        );
+        background-size: 100% 100%;
+    }
+
     /* 降低背景效果强度以提升性能 */
     .glow-orb {
-        opacity: 0.15;
-        filter: blur(80px);
+        opacity: 0.1;
+        filter: blur(60px);
+        /* 禁用浮动动画，减少重绘 */
+        animation: none !important;
+        /* 使用 transform 代替 filter 动画 */
+        will-change: auto;
     }
 
     .glow-orb-1 {
-        width: 400px;
-        height: 400px;
+        width: 300px;
+        height: 300px;
+        animation: none !important;
     }
 
     .glow-orb-2 {
-        width: 300px;
-        height: 300px;
+        width: 250px;
+        height: 250px;
+        animation: none !important;
     }
 
     .glow-orb-3 {
-        width: 250px;
-        height: 250px;
+        width: 200px;
+        height: 200px;
+        animation: none !important;
+    }
+
+    /* 禁用光晕的额外层动画 */
+    .glow-orb::after {
+        animation: none !important;
+        opacity: 0.3;
+    }
+
+    /* 粒子效果简化 */
+    .particle {
+        /* 禁用浮动动画 */
+        animation: none !important;
+        opacity: 0.1;
+        /* 使用简单的脉冲效果代替复杂动画 */
+    }
+
+    /* 粒子背景容器优化 */
+    .particles-bg {
+        opacity: 0.5;
+    }
+
+    /* 禁用自我介绍区域的极光动画 */
+    .introduction-section::before {
+        animation: none !important;
+        background-size: 100% 100%;
+    }
+
+    /* 简化卡片动画 */
+    .intro-card::after {
+        animation: none !important;
+        display: none;
+    }
+
+    /* 简化标签动画 */
+    .intro-tags .tag {
+        animation: fadeInUp 0.5s ease both !important;
+    }
+
+    .intro-tags .tag:nth-child(1) { animation-delay: 0.1s !important; }
+    .intro-tags .tag:nth-child(2) { animation-delay: 0.15s !important; }
+    .intro-tags .tag:nth-child(3) { animation-delay: 0.2s !important; }
+    .intro-tags .tag:nth-child(4) { animation-delay: 0.25s !important; }
+
+    /* 简化问候语动画 */
+    .intro-greeting {
+        animation: fadeInUp 0.6s ease !important;
+        /* 减少滤镜效果 */
+        filter: drop-shadow(0 0 20px rgba(var(--color-primary-rgb), 0.3));
+    }
+
+    /* 简化logo动画 */
+    .logo-link {
+        animation: none !important;
+    }
+
+    /* 简化标签hover效果 */
+    .tag::before {
+        display: none;
+    }
+
+    .tag:hover {
+        transform: translateY(-2px) scale(1.02);
     }
 
     /* 导航栏 */
@@ -143,6 +226,8 @@
         padding: 14px 32px;
         font-size: var(--font-size-base);
         margin-top: var(--spacing-md);
+        /* 简化按钮动画 */
+        animation: none !important;
     }
 
     /* 区块通用 */
@@ -269,6 +354,8 @@
     .cta-button {
         padding: 12px 28px;
         font-size: 0.95rem;
+        /* 简化按钮动画 */
+        animation: none !important;
     }
 
     /* 联系我板块 */
@@ -355,6 +442,30 @@
    ======================================== */
 
 @media (max-width: 374px) {
+    /* 超小屏幕进一步简化动画 */
+    .glow-orb {
+        opacity: 0.08;
+        filter: blur(50px);
+    }
+
+    .glow-orb-1 {
+        width: 200px;
+        height: 200px;
+    }
+
+    .glow-orb-2 {
+        width: 150px;
+        height: 150px;
+    }
+
+    .glow-orb-3 {
+        display: none;
+    }
+
+    .particles-bg {
+        opacity: 0.3;
+    }
+
     .intro-greeting {
         font-size: 1.5rem;
     }
@@ -400,6 +511,57 @@
    ======================================== */
 
 @media (min-width: 768px) and (max-width: 1023px) {
+    /* 平板端性能优化 - 适度简化动画 */
+    
+    /* 降低极光背景动画强度 */
+    body::after {
+        animation-duration: 30s;
+        opacity: 0.8;
+    }
+
+    /* 适度降低光晕效果 */
+    .glow-orb {
+        opacity: 0.15;
+        filter: blur(80px);
+        animation-duration: 30s;
+    }
+
+    .glow-orb-1 {
+        width: 500px;
+        height: 500px;
+    }
+
+    .glow-orb-2 {
+        width: 400px;
+        height: 400px;
+    }
+
+    .glow-orb-3 {
+        width: 350px;
+        height: 350px;
+    }
+
+    /* 简化光晕额外层 */
+    .glow-orb::after {
+        animation-duration: 12s;
+    }
+
+    /* 粒子效果适度简化 */
+    .particle {
+        animation-duration: 25s;
+        opacity: 0.12;
+    }
+
+    /* 简化自我介绍区域动画 */
+    .introduction-section::before {
+        animation-duration: 20s;
+    }
+
+    /* 简化卡片旋转动画 */
+    .intro-card::after {
+        animation-duration: 18s;
+    }
+
     /* 导航栏 */
     .nav-toggle {
         display: none;
@@ -424,9 +586,20 @@
         font-size: 0.9rem;
     }
 
+    .nav-container {
+        padding: var(--spacing-sm) var(--spacing-md);
+    }
+
+    .theme-toggle,
+    .mode-toggle {
+        width: 44px;
+        height: 44px;
+    }
+
     /* 自我介绍 */
     .introduction-section {
         padding: var(--spacing-xl) var(--spacing-md);
+        padding-top: calc(var(--spacing-xl) + 80px);
     }
 
     .intro-grid {
@@ -439,75 +612,266 @@
     }
 
     .intro-greeting {
-        font-size: 2.2rem;
+        font-size: 2.4rem;
         text-align: center;
     }
 
     .intro-text {
         text-align: center;
+        font-size: 1rem;
+        line-height: 1.9;
+    }
+
+    .intro-content {
+        margin-bottom: var(--spacing-lg);
     }
 
     .intro-tags {
         justify-content: center;
+        gap: var(--spacing-sm);
+    }
+
+    .tag {
+        padding: 10px 18px;
+        font-size: 0.85rem;
     }
 
     .intro-card {
-        max-width: 500px;
+        max-width: 550px;
         margin: 0 auto;
+        padding: var(--spacing-lg);
+    }
+
+    .intro-chat-btn {
+        padding: 16px 36px;
+        font-size: 1rem;
+    }
+
+    /* 区块通用 */
+    .section-title {
+        font-size: 2rem;
+        margin-bottom: var(--spacing-xl);
+    }
+
+    .section-title::after {
+        width: 90px;
+        height: 4px;
+    }
+
+    .hobbies-section,
+    .traits-section,
+    .friendship-section,
+    .contact-section {
+        padding: var(--spacing-2xl) var(--spacing-md);
     }
 
     /* 兴趣爱好 */
     .hobby-categories {
         grid-template-columns: repeat(2, 1fr);
         gap: var(--spacing-md);
+        max-width: 700px;
+        margin: 0 auto;
     }
 
     .hobby-categories .hobby-card:last-child {
         grid-column: 1 / -1;
-        max-width: 50%;
+        max-width: 340px;
         margin: 0 auto;
+    }
+
+    .hobby-card {
+        padding: var(--spacing-md);
+    }
+
+    .hobby-card-icon {
+        width: 75px;
+        height: 75px;
+        font-size: 2rem;
+    }
+
+    .hobby-card-title {
+        font-size: 1.2rem;
+    }
+
+    .hobby-icon {
+        width: 45px;
+        height: 45px;
+        font-size: 1.5rem;
+    }
+
+    .hobby-desc {
+        font-size: 0.9rem;
     }
 
     /* 个人特质 */
     .trait-cards {
         grid-template-columns: repeat(2, 1fr);
         gap: var(--spacing-md);
+        max-width: 700px;
+        margin: 0 auto;
+    }
+
+    .trait-card {
+        padding: var(--spacing-md);
+    }
+
+    .trait-icon {
+        width: 90px;
+        height: 90px;
+        font-size: 2.5rem;
+    }
+
+    .trait-title {
+        font-size: 1.2rem;
+    }
+
+    .trait-description {
+        font-size: 0.95rem;
     }
 
     /* 交友期望 */
     .friend-type-cards {
         grid-template-columns: repeat(2, 1fr);
-        max-width: 800px;
+        max-width: 700px;
         margin-left: auto;
         margin-right: auto;
+        gap: var(--spacing-md);
+        margin-bottom: var(--spacing-xl);
+    }
+
+    .friend-type-card {
+        padding: var(--spacing-md);
+    }
+
+    .friend-type-icon {
+        width: 90px;
+        height: 90px;
+        font-size: 2.5rem;
+    }
+
+    .friend-type-title {
+        font-size: 1.2rem;
+    }
+
+    .friend-type-description {
+        font-size: 0.95rem;
+    }
+
+    .criteria-list {
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: var(--spacing-sm);
     }
 
     .criteria-item {
-        min-width: 260px;
-        max-width: 340px;
+        min-width: 280px;
+        max-width: 320px;
+        padding: var(--spacing-sm) var(--spacing-md);
+    }
+
+    .criteria-icon {
+        font-size: 2rem;
+    }
+
+    .friendship-cta {
+        padding: var(--spacing-lg);
+        max-width: 600px;
+        margin: var(--spacing-lg) auto 0;
+    }
+
+    .cta-text {
+        font-size: 1rem;
+    }
+
+    .cta-button {
+        padding: 14px 32px;
+        font-size: 1rem;
     }
 
     /* 联系我 */
     .contact-wrapper {
         grid-template-columns: 1fr;
-        gap: var(--spacing-lg);
+        gap: var(--spacing-xl);
     }
 
     .contact-cards {
         flex-direction: row;
         flex-wrap: wrap;
         justify-content: center;
+        gap: var(--spacing-md);
     }
 
     .contact-card {
         flex: 1;
-        min-width: 220px;
-        max-width: 300px;
+        min-width: 200px;
+        max-width: 280px;
+        padding: var(--spacing-md);
+    }
+
+    .contact-card-icon {
+        width: 60px;
+        height: 60px;
+        font-size: 1.8rem;
+    }
+
+    .contact-card-value {
+        font-size: 1rem;
     }
 
     .contact-form-wrapper {
         max-width: 600px;
         margin: 0 auto;
+        padding: var(--spacing-lg);
+    }
+
+    .form-title {
+        font-size: 1.3rem;
+    }
+
+    .form-input,
+    .form-textarea {
+        padding: var(--spacing-sm) var(--spacing-md);
+        font-size: 1rem;
+    }
+
+    .form-submit {
+        padding: var(--spacing-sm) var(--spacing-xl);
+        font-size: 1rem;
+    }
+
+    /* 微信弹窗 */
+    .wechat-modal-content {
+        padding: var(--spacing-lg);
+        width: 85%;
+        max-width: 450px;
+    }
+
+    .wechat-id {
+        font-size: 1.5rem;
+        padding: var(--spacing-sm) var(--spacing-md);
+    }
+
+    .wechat-modal-buttons {
+        flex-direction: row;
+        gap: var(--spacing-sm);
+    }
+
+    /* 页脚 */
+    .site-footer {
+        padding: var(--spacing-xl) var(--spacing-md);
+    }
+
+    .social-links {
+        gap: var(--spacing-md);
+    }
+
+    .social-link {
+        padding: var(--spacing-xs) var(--spacing-lg);
+        font-size: 0.95rem;
+    }
+
+    .footer-copyright p {
+        font-size: 0.85rem;
     }
 }
 

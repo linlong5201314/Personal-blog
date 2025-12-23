@@ -1,408 +1,838 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="zh-CN">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="个人网页 - 展示兴趣爱好、个人特质和交友期望">
-  <title>我的小天地</title>
-  <link rel="preload" href="css/styles.css" as="style">
-  <link rel="preload" href="css/responsive.css" as="style">
-  <link rel="dns-prefetch" href="//fonts.googleapis.com">
-  <link rel="stylesheet" href="css/styles.css">
-  <link rel="stylesheet" href="css/responsive.css">
-  <style>
-    @media (prefers-reduced-motion: reduce) {
-      *, *::before, *::after {
-        animation-duration: 0.01ms !important;
-        animation-iteration-count: 1 !important;
-        transition-duration: 0.01ms !important;
-      }
-    }
-  </style>
-</head>
-<body>
-  <!-- 背景动画元素 -->
-  <div class="glow-orb glow-orb-1" aria-hidden="true"></div>
-  <div class="glow-orb glow-orb-2" aria-hidden="true"></div>
-  <div class="glow-orb glow-orb-3" aria-hidden="true"></div>
-  <div class="particles-bg" aria-hidden="true"></div>
+    <head>
+        <meta charset="UTF-8" />
+        <meta
+            name="viewport"
+            content="width=device-width, initial-scale=1.0, viewport-fit=cover"
+        />
+        <meta
+            name="description"
+            content="个人网页 - 展示兴趣爱好、个人特质和交友期望"
+        />
+        <meta name="theme-color" content="#8B5CF6" />
+        <meta name="color-scheme" content="dark light" />
+        <meta name="apple-mobile-web-app-capable" content="yes" />
+        <meta
+            name="apple-mobile-web-app-status-bar-style"
+            content="black-translucent"
+        />
+        <title>我的小天地 ✨</title>
 
-  <!-- 跳转到主内容链接 -->
-  <a href="#main-content" class="skip-link">跳转到主内容</a>
-  
-  <!-- 导航栏 -->
-  <header class="site-header" role="banner">
-    <nav class="nav-container" role="navigation" aria-label="主导航">
-      <div class="nav-logo">
-        <a href="#introduction" class="logo-link" aria-label="我的小天地 - 返回首页">✨ 我的小天地</a>
-      </div>
-      
-      <ul class="nav-links" id="nav-links" role="menubar" aria-label="页面导航">
-        <li role="none"><a href="#introduction" class="nav-link active" role="menuitem">关于我</a></li>
-        <li role="none"><a href="#hobbies" class="nav-link" role="menuitem">兴趣爱好</a></li>
-        <li role="none"><a href="#traits" class="nav-link" role="menuitem">个人特质</a></li>
-        <li role="none"><a href="#friendship" class="nav-link" role="menuitem">交友期望</a></li>
-        <li role="none"><a href="#contact" class="nav-link" role="menuitem">联系我</a></li>
-      </ul>
-      
-      <button class="theme-toggle" id="theme-toggle" type="button" aria-label="切换主题" aria-pressed="false">
-        <span aria-hidden="true">🎨</span>
-      </button>
+        <!-- 预加载关键资源 -->
+        <link rel="preload" href="css/styles.css" as="style" />
+        <link rel="preload" href="css/responsive.css" as="style" />
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+        <link
+            href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@300;400;500;600;700&display=swap"
+            rel="stylesheet"
+        />
 
-      <button class="mode-toggle" id="mode-toggle" type="button" aria-label="切换深浅模式" aria-pressed="false">
-        <span aria-hidden="true">🌙</span>
-      </button>
-      
-      <button class="nav-toggle" id="nav-toggle" type="button" aria-label="切换导航菜单" aria-expanded="false" aria-controls="nav-links" aria-haspopup="true">
-        <span class="hamburger-line" aria-hidden="true"></span>
-        <span class="hamburger-line" aria-hidden="true"></span>
-        <span class="hamburger-line" aria-hidden="true"></span>
-      </button>
-    </nav>
-  </header>
+        <!-- 样式表 -->
+        <link rel="stylesheet" href="css/styles.css" />
+        <link rel="stylesheet" href="css/responsive.css" />
 
-  <!-- 主内容区域 -->
-  <main id="main-content" role="main">
-    <!-- 自我介绍板块 -->
-    <section id="introduction" class="introduction-section" aria-labelledby="introduction-title" role="region">
-      <div class="section-container">
-        <h1 id="introduction-title" class="intro-greeting">嗨～欢迎来到我的小天地！ 🌟</h1>
+        <!-- 内联关键样式 - 防止闪烁 -->
+        <style>
+            /* 页面加载动画 */
+            html {
+                scroll-behavior: smooth;
+            }
 
-        <div class="intro-grid">
-          <div class="intro-copy">
-            <div class="intro-content">
-              <p class="intro-text">
-                我是一个热爱生活、喜欢交朋友的人。平时喜欢打打<span class="highlight-tag">羽毛球</span>、跑跑步，也爱刷<span class="highlight-tag">抖音</span>、追剧，偶尔还会玩玩<span class="highlight-tag">王者荣耀</span>。最近对<span class="highlight-tag">AI</span>特别感兴趣，喜欢捣鼓各种AI小玩意。
-              </p>
-              <p class="intro-text">
-                性格上，我待人<span class="highlight-tag">友好</span>，乐于交流和帮助他人；做事有<span class="highlight-tag">耐心</span>，喜欢慢慢琢磨解决问题；对在意的人特别<span class="highlight-tag">重视羁绊</span>，会用心维护每一段珍贵的关系。
-              </p>
-              <p class="intro-text">
-                如果你也喜欢聊技术、打游戏，或者只是想找个人唠唠嗑，欢迎来认识我！
-              </p>
-            </div>
-          </div>
+            body {
+                opacity: 0;
+                animation: pageLoad 0.6s ease forwards;
+                animation-delay: 0.1s;
+            }
 
-          <aside class="intro-card" aria-label="个人标签与快速入口">
-            <div class="intro-tags" role="list" aria-label="兴趣标签">
-              <span class="tag tag-sports" role="listitem">🏃 运动达人</span>
-              <span class="tag tag-leisure" role="listitem">🎮 娱乐爱好者</span>
-              <span class="tag tag-tech" role="listitem">🤖 AI探索者</span>
-              <span class="tag tag-friendly" role="listitem">💖 友善热情</span>
-            </div>
+            @keyframes pageLoad {
+                to {
+                    opacity: 1;
+                }
+            }
 
-            <a href="#contact" class="intro-chat-btn" aria-label="跳转到联系我">
-              <span class="btn-shine"></span>
-              <span class="btn-icon">💬</span>
-              <span class="btn-text">与我聊天</span>
-            </a>
-          </aside>
-        </div>
-      </div>
-    </section>
+            /* 减少动画偏好 */
+            @media (prefers-reduced-motion: reduce) {
+                *,
+                *::before,
+                *::after {
+                    animation-duration: 0.01ms !important;
+                    animation-iteration-count: 1 !important;
+                    transition-duration: 0.01ms !important;
+                }
+                body {
+                    opacity: 1;
+                    animation: none;
+                }
+            }
+        </style>
+    </head>
+    <body>
+        <!-- 极光背景动画元素 -->
+        <div class="glow-orb glow-orb-1" aria-hidden="true"></div>
+        <div class="glow-orb glow-orb-2" aria-hidden="true"></div>
+        <div class="glow-orb glow-orb-3" aria-hidden="true"></div>
+        <div class="particles-bg" aria-hidden="true" id="particles-bg"></div>
 
-    <!-- 兴趣爱好板块 -->
-    <section id="hobbies" class="hobbies-section" aria-labelledby="hobbies-title" role="region">
-      <div class="section-container">
-        <h2 id="hobbies-title" class="section-title">兴趣爱好</h2>
-        
-        <div class="hobby-categories" role="list" aria-label="兴趣爱好分类">
-          <!-- 运动类 -->
-          <article class="hobby-card" tabindex="0" role="listitem" aria-labelledby="hobby-sports-title">
-            <div class="hobby-card-icon icon-sports" aria-hidden="true">
-              <span>🏃</span>
-            </div>
-            <h3 id="hobby-sports-title" class="hobby-card-title">运动类</h3>
-            <ul class="hobby-list" aria-label="运动类爱好列表">
-              <li class="hobby-item">
-                <span class="hobby-icon" aria-hidden="true">🏸</span>
-                <div class="hobby-info">
-                  <span class="hobby-name">羽毛球</span>
-                  <p class="hobby-desc">喜欢和朋友切磋，享受挥拍的快感</p>
+        <!-- 跳转到主内容链接 -->
+        <a href="#main-content" class="skip-link">跳转到主内容</a>
+
+        <!-- 导航栏 -->
+        <header class="site-header" role="banner">
+            <nav class="nav-container" role="navigation" aria-label="主导航">
+                <div class="nav-logo">
+                    <a
+                        href="#introduction"
+                        class="logo-link"
+                        aria-label="我的小天地 - 返回首页"
+                    >
+                        <span aria-hidden="true">✨</span> 我的小天地
+                    </a>
                 </div>
-              </li>
-              <li class="hobby-item">
-                <span class="hobby-icon" aria-hidden="true">🏃‍♂️</span>
-                <div class="hobby-info">
-                  <span class="hobby-name">跑步</span>
-                  <p class="hobby-desc">晨跑或夜跑，保持活力的好方式</p>
+
+                <ul
+                    class="nav-links"
+                    id="nav-links"
+                    role="menubar"
+                    aria-label="页面导航"
+                >
+                    <li role="none">
+                        <a
+                            href="#introduction"
+                            class="nav-link active"
+                            role="menuitem"
+                            >关于我</a
+                        >
+                    </li>
+                    <li role="none">
+                        <a href="#hobbies" class="nav-link" role="menuitem"
+                            >兴趣爱好</a
+                        >
+                    </li>
+                    <li role="none">
+                        <a href="#traits" class="nav-link" role="menuitem"
+                            >个人特质</a
+                        >
+                    </li>
+                    <li role="none">
+                        <a href="#friendship" class="nav-link" role="menuitem"
+                            >交友期望</a
+                        >
+                    </li>
+                    <li role="none">
+                        <a href="#contact" class="nav-link" role="menuitem"
+                            >联系我</a
+                        >
+                    </li>
+                </ul>
+
+                <button
+                    class="theme-toggle"
+                    id="theme-toggle"
+                    type="button"
+                    aria-label="切换主题"
+                    aria-pressed="false"
+                >
+                    <span aria-hidden="true">🎨</span>
+                </button>
+
+                <button
+                    class="mode-toggle"
+                    id="mode-toggle"
+                    type="button"
+                    aria-label="切换深浅模式"
+                    aria-pressed="false"
+                >
+                    <span aria-hidden="true">🌙</span>
+                </button>
+
+                <button
+                    class="nav-toggle"
+                    id="nav-toggle"
+                    type="button"
+                    aria-label="切换导航菜单"
+                    aria-expanded="false"
+                    aria-controls="nav-links"
+                    aria-haspopup="true"
+                >
+                    <span class="hamburger-line" aria-hidden="true"></span>
+                    <span class="hamburger-line" aria-hidden="true"></span>
+                    <span class="hamburger-line" aria-hidden="true"></span>
+                </button>
+            </nav>
+        </header>
+
+        <!-- 主内容区域 -->
+        <main id="main-content" role="main">
+            <!-- 自我介绍板块 -->
+            <section
+                id="introduction"
+                class="introduction-section"
+                aria-labelledby="introduction-title"
+                role="region"
+            >
+                <div class="section-container">
+                    <h1 id="introduction-title" class="intro-greeting">
+                        嗨～欢迎来到我的小天地！ 🌟
+                    </h1>
+
+                    <div class="intro-grid">
+                        <div class="intro-copy">
+                            <div class="intro-content">
+                                <p class="intro-text">
+                                    我是一个热爱生活、喜欢交朋友的人。平时喜欢打打<span
+                                        class="highlight-tag"
+                                        >羽毛球</span
+                                    >、跑跑步，也爱刷<span class="highlight-tag"
+                                        >抖音</span
+                                    >、追剧，偶尔还会玩玩<span
+                                        class="highlight-tag"
+                                        >王者荣耀</span
+                                    >。最近对<span class="highlight-tag"
+                                        >AI</span
+                                    >特别感兴趣，喜欢捣鼓各种AI小玩意。
+                                </p>
+                                <p class="intro-text">
+                                    性格上，我待人<span class="highlight-tag"
+                                        >友好</span
+                                    >，乐于交流和帮助他人；做事有<span
+                                        class="highlight-tag"
+                                        >耐心</span
+                                    >，喜欢慢慢琢磨解决问题；对在意的人特别<span
+                                        class="highlight-tag"
+                                        >重视羁绊</span
+                                    >，会用心维护每一段珍贵的关系。
+                                </p>
+                                <p class="intro-text">
+                                    如果你也喜欢聊技术、打游戏，或者只是想找个人唠唠嗑，欢迎来认识我！
+                                </p>
+                            </div>
+                        </div>
+
+                        <aside
+                            class="intro-card"
+                            aria-label="个人标签与快速入口"
+                        >
+                            <div
+                                class="intro-tags"
+                                role="list"
+                                aria-label="兴趣标签"
+                            >
+                                <span class="tag tag-sports" role="listitem"
+                                    >🏃 运动达人</span
+                                >
+                                <span class="tag tag-leisure" role="listitem"
+                                    >🎮 娱乐爱好者</span
+                                >
+                                <span class="tag tag-tech" role="listitem"
+                                    >🤖 AI探索者</span
+                                >
+                                <span class="tag tag-friendly" role="listitem"
+                                    >💖 友善热情</span
+                                >
+                            </div>
+
+                            <a
+                                href="#contact"
+                                class="intro-chat-btn"
+                                aria-label="跳转到联系我"
+                            >
+                                <span class="btn-shine"></span>
+                                <span class="btn-icon">💬</span>
+                                <span class="btn-text">与我聊天</span>
+                            </a>
+                        </aside>
+                    </div>
                 </div>
-              </li>
-              <li class="hobby-item">
-                <span class="hobby-icon" aria-hidden="true">🏊</span>
-                <div class="hobby-info">
-                  <span class="hobby-name">游泳</span>
-                  <p class="hobby-desc">夏天最爱的运动，清凉又解压</p>
+            </section>
+
+            <!-- 兴趣爱好板块 -->
+            <section
+                id="hobbies"
+                class="hobbies-section"
+                aria-labelledby="hobbies-title"
+                role="region"
+            >
+                <div class="section-container">
+                    <h2 id="hobbies-title" class="section-title">兴趣爱好</h2>
+
+                    <div
+                        class="hobby-categories"
+                        role="list"
+                        aria-label="兴趣爱好分类"
+                    >
+                        <!-- 运动类 -->
+                        <article
+                            class="hobby-card"
+                            tabindex="0"
+                            role="listitem"
+                            aria-labelledby="hobby-sports-title"
+                        >
+                            <div
+                                class="hobby-card-icon icon-sports"
+                                aria-hidden="true"
+                            >
+                                <span>🏃</span>
+                            </div>
+                            <h3
+                                id="hobby-sports-title"
+                                class="hobby-card-title"
+                            >
+                                运动类
+                            </h3>
+                            <ul class="hobby-list" aria-label="运动类爱好列表">
+                                <li class="hobby-item">
+                                    <span class="hobby-icon" aria-hidden="true"
+                                        >🏸</span
+                                    >
+                                    <div class="hobby-info">
+                                        <span class="hobby-name">羽毛球</span>
+                                        <p class="hobby-desc">
+                                            喜欢和朋友切磋，享受挥拍的快感
+                                        </p>
+                                    </div>
+                                </li>
+                                <li class="hobby-item">
+                                    <span class="hobby-icon" aria-hidden="true"
+                                        >🏃‍♂️</span
+                                    >
+                                    <div class="hobby-info">
+                                        <span class="hobby-name">跑步</span>
+                                        <p class="hobby-desc">
+                                            晨跑或夜跑，保持活力的好方式
+                                        </p>
+                                    </div>
+                                </li>
+                                <li class="hobby-item">
+                                    <span class="hobby-icon" aria-hidden="true"
+                                        >🏊</span
+                                    >
+                                    <div class="hobby-info">
+                                        <span class="hobby-name">游泳</span>
+                                        <p class="hobby-desc">
+                                            夏天最爱的运动，清凉又解压
+                                        </p>
+                                    </div>
+                                </li>
+                            </ul>
+                        </article>
+
+                        <!-- 休闲类 -->
+                        <article
+                            class="hobby-card"
+                            tabindex="0"
+                            role="listitem"
+                            aria-labelledby="hobby-leisure-title"
+                        >
+                            <div
+                                class="hobby-card-icon icon-leisure"
+                                aria-hidden="true"
+                            >
+                                <span>🎮</span>
+                            </div>
+                            <h3
+                                id="hobby-leisure-title"
+                                class="hobby-card-title"
+                            >
+                                休闲类
+                            </h3>
+                            <ul class="hobby-list" aria-label="休闲类爱好列表">
+                                <li class="hobby-item">
+                                    <span class="hobby-icon" aria-hidden="true"
+                                        >📱</span
+                                    >
+                                    <div class="hobby-info">
+                                        <span class="hobby-name">刷抖音</span>
+                                        <p class="hobby-desc">
+                                            发现有趣的内容，放松心情
+                                        </p>
+                                    </div>
+                                </li>
+                                <li class="hobby-item">
+                                    <span class="hobby-icon" aria-hidden="true"
+                                        >📺</span
+                                    >
+                                    <div class="hobby-info">
+                                        <span class="hobby-name">追剧</span>
+                                        <p class="hobby-desc">
+                                            沉浸在精彩的故事世界里
+                                        </p>
+                                    </div>
+                                </li>
+                                <li class="hobby-item">
+                                    <span class="hobby-icon" aria-hidden="true"
+                                        >👑</span
+                                    >
+                                    <div class="hobby-info">
+                                        <span class="hobby-name">王者荣耀</span>
+                                        <p class="hobby-desc">
+                                            和朋友开黑，享受团队配合的乐趣
+                                        </p>
+                                    </div>
+                                </li>
+                                <li class="hobby-item">
+                                    <span class="hobby-icon" aria-hidden="true"
+                                        >🎵</span
+                                    >
+                                    <div class="hobby-info">
+                                        <span class="hobby-name">听音乐</span>
+                                        <p class="hobby-desc">
+                                            各种风格都听，音乐是生活的调味剂
+                                        </p>
+                                    </div>
+                                </li>
+                            </ul>
+                        </article>
+
+                        <!-- 技术类 -->
+                        <article
+                            class="hobby-card"
+                            tabindex="0"
+                            role="listitem"
+                            aria-labelledby="hobby-tech-title"
+                        >
+                            <div
+                                class="hobby-card-icon icon-tech"
+                                aria-hidden="true"
+                            >
+                                <span>🤖</span>
+                            </div>
+                            <h3 id="hobby-tech-title" class="hobby-card-title">
+                                技术类
+                            </h3>
+                            <ul class="hobby-list" aria-label="技术类爱好列表">
+                                <li class="hobby-item">
+                                    <span class="hobby-icon" aria-hidden="true"
+                                        >✨</span
+                                    >
+                                    <div class="hobby-info">
+                                        <span class="hobby-name">AI小玩意</span>
+                                        <p class="hobby-desc">
+                                            喜欢探索各种AI工具，动手尝试新技术
+                                        </p>
+                                    </div>
+                                </li>
+                                <li class="hobby-item">
+                                    <span class="hobby-icon" aria-hidden="true"
+                                        >💻</span
+                                    >
+                                    <div class="hobby-info">
+                                        <span class="hobby-name">编程开发</span>
+                                        <p class="hobby-desc">
+                                            用代码创造有趣的东西，享受创作的乐趣
+                                        </p>
+                                    </div>
+                                </li>
+                                <li class="hobby-item">
+                                    <span class="hobby-icon" aria-hidden="true"
+                                        >📚</span
+                                    >
+                                    <div class="hobby-info">
+                                        <span class="hobby-name"
+                                            >学习新技术</span
+                                        >
+                                        <p class="hobby-desc">
+                                            保持好奇心，不断学习新知识
+                                        </p>
+                                    </div>
+                                </li>
+                            </ul>
+                        </article>
+                    </div>
                 </div>
-              </li>
-            </ul>
-          </article>
+            </section>
 
-          <!-- 休闲类 -->
-          <article class="hobby-card" tabindex="0" role="listitem" aria-labelledby="hobby-leisure-title">
-            <div class="hobby-card-icon icon-leisure" aria-hidden="true">
-              <span>🎮</span>
-            </div>
-            <h3 id="hobby-leisure-title" class="hobby-card-title">休闲类</h3>
-            <ul class="hobby-list" aria-label="休闲类爱好列表">
-              <li class="hobby-item">
-                <span class="hobby-icon" aria-hidden="true">📱</span>
-                <div class="hobby-info">
-                  <span class="hobby-name">刷抖音</span>
-                  <p class="hobby-desc">发现有趣的内容，放松心情</p>
+            <!-- 个人特质板块 -->
+            <section
+                id="traits"
+                class="traits-section"
+                aria-labelledby="traits-title"
+                role="region"
+            >
+                <div class="section-container">
+                    <h2 id="traits-title" class="section-title">个人特质</h2>
+
+                    <div
+                        class="trait-cards"
+                        role="list"
+                        aria-label="个人特质列表"
+                    >
+                        <article
+                            class="trait-card"
+                            tabindex="0"
+                            role="listitem"
+                            aria-labelledby="trait-friendly-title"
+                        >
+                            <div
+                                class="trait-icon icon-friendly"
+                                aria-hidden="true"
+                            >
+                                <span>😊</span>
+                            </div>
+                            <h3 id="trait-friendly-title" class="trait-title">
+                                待人友好
+                            </h3>
+                            <p class="trait-description">
+                                乐于交流，喜欢和不同的人聊天分享。遇到朋友有困难，总是愿意伸出援手，能帮就帮。相信真诚待人，才能收获真心。
+                            </p>
+                        </article>
+
+                        <article
+                            class="trait-card"
+                            tabindex="0"
+                            role="listitem"
+                            aria-labelledby="trait-patient-title"
+                        >
+                            <div
+                                class="trait-icon icon-patient"
+                                aria-hidden="true"
+                            >
+                                <span>🧩</span>
+                            </div>
+                            <h3 id="trait-patient-title" class="trait-title">
+                                有耐心
+                            </h3>
+                            <p class="trait-description">
+                                做事不急躁，喜欢慢慢琢磨问题。遇到难题不会轻易放弃，愿意花时间一步步找到解决方案。享受攻克难关的成就感。
+                            </p>
+                        </article>
+
+                        <article
+                            class="trait-card"
+                            tabindex="0"
+                            role="listitem"
+                            aria-labelledby="trait-caring-title"
+                        >
+                            <div
+                                class="trait-icon icon-caring"
+                                aria-hidden="true"
+                            >
+                                <span>💝</span>
+                            </div>
+                            <h3 id="trait-caring-title" class="trait-title">
+                                重视羁绊
+                            </h3>
+                            <p class="trait-description">
+                                对在意的人特别上心，会用心维护每一段珍贵的关系。有点小占有欲，但这也是因为太在乎。希望和重要的人建立深厚的连接。
+                            </p>
+                        </article>
+
+                        <article
+                            class="trait-card"
+                            tabindex="0"
+                            role="listitem"
+                            aria-labelledby="trait-curious-title"
+                        >
+                            <div
+                                class="trait-icon icon-curious"
+                                aria-hidden="true"
+                            >
+                                <span>🔍</span>
+                            </div>
+                            <h3 id="trait-curious-title" class="trait-title">
+                                好奇心强
+                            </h3>
+                            <p class="trait-description">
+                                对新鲜事物充满好奇，喜欢探索未知领域。看到有趣的东西就想研究一番，学习新技能让我感到兴奋和满足。
+                            </p>
+                        </article>
+                    </div>
                 </div>
-              </li>
-              <li class="hobby-item">
-                <span class="hobby-icon" aria-hidden="true">📺</span>
-                <div class="hobby-info">
-                  <span class="hobby-name">追剧</span>
-                  <p class="hobby-desc">沉浸在精彩的故事世界里</p>
+            </section>
+
+            <!-- 交友期望板块 -->
+            <section
+                id="friendship"
+                class="friendship-section"
+                aria-labelledby="friendship-title"
+                role="region"
+            >
+                <div class="section-container">
+                    <h2 id="friendship-title" class="section-title">
+                        交友期望
+                    </h2>
+
+                    <div
+                        class="friend-type-cards"
+                        role="list"
+                        aria-label="期望的朋友类型"
+                    >
+                        <article
+                            class="friend-type-card"
+                            tabindex="0"
+                            role="listitem"
+                            aria-labelledby="friend-tech-title"
+                        >
+                            <div
+                                class="friend-type-icon icon-tech-partner"
+                                aria-hidden="true"
+                            >
+                                <span>💻</span>
+                            </div>
+                            <h3
+                                id="friend-tech-title"
+                                class="friend-type-title"
+                            >
+                                技术伙伴
+                            </h3>
+                            <p class="friend-type-description">
+                                希望找到志同道合的技术爱好者，一起探讨AI、编程等话题，分享学习心得，互相进步。不管是大佬还是小白，只要有热情就欢迎！
+                            </p>
+                        </article>
+
+                        <article
+                            class="friend-type-card"
+                            tabindex="0"
+                            role="listitem"
+                            aria-labelledby="friend-play-title"
+                        >
+                            <div
+                                class="friend-type-icon icon-play-partner"
+                                aria-hidden="true"
+                            >
+                                <span>🎮</span>
+                            </div>
+                            <h3
+                                id="friend-play-title"
+                                class="friend-type-title"
+                            >
+                                玩伴
+                            </h3>
+                            <p class="friend-type-description">
+                                想找一起打羽毛球、跑步的运动搭子，或者一起开黑王者、追剧聊天的小伙伴。生活需要有趣的灵魂相伴！
+                            </p>
+                        </article>
+                    </div>
+
+                    <div
+                        class="friendship-criteria"
+                        aria-labelledby="criteria-heading"
+                    >
+                        <h3 id="criteria-heading" class="criteria-title">
+                            我看重的品质
+                        </h3>
+                        <div
+                            class="criteria-list"
+                            role="list"
+                            aria-label="交友标准列表"
+                        >
+                            <div class="criteria-item" role="listitem">
+                                <span class="criteria-icon" aria-hidden="true"
+                                    >💎</span
+                                >
+                                <div class="criteria-content">
+                                    <span class="criteria-name">真诚</span>
+                                    <p class="criteria-desc">
+                                        真心相待，不玩虚的，坦诚交流
+                                    </p>
+                                </div>
+                            </div>
+                            <div class="criteria-item" role="listitem">
+                                <span class="criteria-icon" aria-hidden="true"
+                                    >💬</span
+                                >
+                                <div class="criteria-content">
+                                    <span class="criteria-name">共同话题</span>
+                                    <p class="criteria-desc">
+                                        有聊不完的话题，相处不尴尬
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div
+                        class="friendship-cta"
+                        role="complementary"
+                        aria-label="联系邀请"
+                    >
+                        <p class="cta-text">如果你觉得我们可能聊得来...</p>
+                        <a
+                            href="#contact"
+                            class="cta-button"
+                            aria-label="点击跳转到联系方式"
+                            >✨ 欢迎来找我唠嗑</a
+                        >
+                    </div>
                 </div>
-              </li>
-              <li class="hobby-item">
-                <span class="hobby-icon" aria-hidden="true">👑</span>
-                <div class="hobby-info">
-                  <span class="hobby-name">王者荣耀</span>
-                  <p class="hobby-desc">和朋友开黑，享受团队配合的乐趣</p>
+            </section>
+        </main>
+
+        <!-- 联系我板块 -->
+        <section
+            id="contact"
+            class="contact-section"
+            aria-labelledby="contact-title"
+            role="region"
+        >
+            <div class="section-container">
+                <h2 id="contact-title" class="section-title">联系我</h2>
+
+                <div class="contact-wrapper">
+                    <!-- 联系方式卡片 -->
+                    <div class="contact-cards">
+                        <a
+                            href="weixin://dl/chat?wxlin52o1314"
+                            class="contact-card"
+                            aria-label="添加微信好友"
+                        >
+                            <div
+                                class="contact-card-icon icon-wechat"
+                                aria-hidden="true"
+                            >
+                                <span>💬</span>
+                            </div>
+                            <div class="contact-card-info">
+                                <h3 class="contact-card-title">微信</h3>
+                                <p class="contact-card-value">wxlin52o1314</p>
+                                <p class="contact-card-hint">点击复制微信号</p>
+                            </div>
+                        </a>
+
+                        <a
+                            href="https://github.com/linlong1314"
+                            class="contact-card"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            aria-label="访问GitHub主页"
+                        >
+                            <div
+                                class="contact-card-icon icon-github"
+                                aria-hidden="true"
+                            >
+                                <span>💻</span>
+                            </div>
+                            <div class="contact-card-info">
+                                <h3 class="contact-card-title">GitHub</h3>
+                                <p class="contact-card-value">linlong1314</p>
+                                <p class="contact-card-hint">点击访问主页</p>
+                            </div>
+                        </a>
+
+                        <a
+                            href="mailto:linlongxiansheng@163.com"
+                            class="contact-card"
+                            aria-label="发送邮件"
+                        >
+                            <div
+                                class="contact-card-icon icon-email"
+                                aria-hidden="true"
+                            >
+                                <span>📧</span>
+                            </div>
+                            <div class="contact-card-info">
+                                <h3 class="contact-card-title">邮箱</h3>
+                                <p class="contact-card-value">
+                                    linlongxiansheng@163.com
+                                </p>
+                                <p class="contact-card-hint">点击发送邮件</p>
+                            </div>
+                        </a>
+                    </div>
+
+                    <!-- 邮件表单 -->
+                    <div class="contact-form-wrapper">
+                        <h3 class="form-title">📮 给我留言</h3>
+                        <form
+                            id="contact-form"
+                            class="contact-form"
+                            aria-label="联系表单"
+                        >
+                            <div class="form-group">
+                                <label for="sender-name" class="form-label"
+                                    >你的名字</label
+                                >
+                                <input
+                                    type="text"
+                                    id="sender-name"
+                                    name="name"
+                                    class="form-input"
+                                    placeholder="请输入你的名字"
+                                    required
+                                />
+                            </div>
+
+                            <div class="form-group">
+                                <label for="sender-email" class="form-label"
+                                    >你的邮箱</label
+                                >
+                                <input
+                                    type="email"
+                                    id="sender-email"
+                                    name="email"
+                                    class="form-input"
+                                    placeholder="请输入你的邮箱"
+                                    required
+                                />
+                            </div>
+
+                            <div class="form-group">
+                                <label for="message-subject" class="form-label"
+                                    >主题</label
+                                >
+                                <input
+                                    type="text"
+                                    id="message-subject"
+                                    name="subject"
+                                    class="form-input"
+                                    placeholder="请输入邮件主题"
+                                    required
+                                />
+                            </div>
+
+                            <div class="form-group">
+                                <label for="message-content" class="form-label"
+                                    >留言内容</label
+                                >
+                                <textarea
+                                    id="message-content"
+                                    name="message"
+                                    class="form-textarea"
+                                    placeholder="请输入你想说的话..."
+                                    rows="5"
+                                    required
+                                ></textarea>
+                            </div>
+
+                            <button
+                                type="submit"
+                                class="form-submit"
+                                id="submit-btn"
+                            >
+                                <span class="btn-text">✨ 发送留言</span>
+                                <span class="btn-loading" aria-hidden="true"
+                                    >发送中...</span
+                                >
+                            </button>
+                        </form>
+
+                        <!-- 发送状态提示 -->
+                        <div
+                            id="form-status"
+                            class="form-status"
+                            role="alert"
+                            aria-live="polite"
+                        ></div>
+                    </div>
                 </div>
-              </li>
-              <li class="hobby-item">
-                <span class="hobby-icon" aria-hidden="true">🎵</span>
-                <div class="hobby-info">
-                  <span class="hobby-name">听音乐</span>
-                  <p class="hobby-desc">各种风格都听，音乐是生活的调味剂</p>
+            </div>
+        </section>
+
+        <!-- 页脚 -->
+        <footer class="site-footer" role="contentinfo" aria-label="页脚">
+            <div class="footer-container">
+                <div class="footer-copyright">
+                    <p>
+                        <span aria-hidden="true">&copy;</span
+                        ><span class="sr-only">版权所有</span> 2025 我的小天地.
+                        期待与你相遇 <span aria-hidden="true">💜</span>
+                    </p>
                 </div>
-              </li>
-            </ul>
-          </article>
+            </div>
+        </footer>
 
-          <!-- 技术类 -->
-          <article class="hobby-card" tabindex="0" role="listitem" aria-labelledby="hobby-tech-title">
-            <div class="hobby-card-icon icon-tech" aria-hidden="true">
-              <span>🤖</span>
-            </div>
-            <h3 id="hobby-tech-title" class="hobby-card-title">技术类</h3>
-            <ul class="hobby-list" aria-label="技术类爱好列表">
-              <li class="hobby-item">
-                <span class="hobby-icon" aria-hidden="true">✨</span>
-                <div class="hobby-info">
-                  <span class="hobby-name">AI小玩意</span>
-                  <p class="hobby-desc">喜欢探索各种AI工具，动手尝试新技术</p>
-                </div>
-              </li>
-              <li class="hobby-item">
-                <span class="hobby-icon" aria-hidden="true">💻</span>
-                <div class="hobby-info">
-                  <span class="hobby-name">编程开发</span>
-                  <p class="hobby-desc">用代码创造有趣的东西，享受创作的乐趣</p>
-                </div>
-              </li>
-              <li class="hobby-item">
-                <span class="hobby-icon" aria-hidden="true">📚</span>
-                <div class="hobby-info">
-                  <span class="hobby-name">学习新技术</span>
-                  <p class="hobby-desc">保持好奇心，不断学习新知识</p>
-                </div>
-              </li>
-            </ul>
-          </article>
-        </div>
-      </div>
-    </section>
-
-    <!-- 个人特质板块 -->
-    <section id="traits" class="traits-section" aria-labelledby="traits-title" role="region">
-      <div class="section-container">
-        <h2 id="traits-title" class="section-title">个人特质</h2>
-        
-        <div class="trait-cards" role="list" aria-label="个人特质列表">
-          <article class="trait-card" tabindex="0" role="listitem" aria-labelledby="trait-friendly-title">
-            <div class="trait-icon icon-friendly" aria-hidden="true">
-              <span>😊</span>
-            </div>
-            <h3 id="trait-friendly-title" class="trait-title">待人友好</h3>
-            <p class="trait-description">
-              乐于交流，喜欢和不同的人聊天分享。遇到朋友有困难，总是愿意伸出援手，能帮就帮。相信真诚待人，才能收获真心。
-            </p>
-          </article>
-
-          <article class="trait-card" tabindex="0" role="listitem" aria-labelledby="trait-patient-title">
-            <div class="trait-icon icon-patient" aria-hidden="true">
-              <span>🧩</span>
-            </div>
-            <h3 id="trait-patient-title" class="trait-title">有耐心</h3>
-            <p class="trait-description">
-              做事不急躁，喜欢慢慢琢磨问题。遇到难题不会轻易放弃，愿意花时间一步步找到解决方案。享受攻克难关的成就感。
-            </p>
-          </article>
-
-          <article class="trait-card" tabindex="0" role="listitem" aria-labelledby="trait-caring-title">
-            <div class="trait-icon icon-caring" aria-hidden="true">
-              <span>💝</span>
-            </div>
-            <h3 id="trait-caring-title" class="trait-title">重视羁绊</h3>
-            <p class="trait-description">
-              对在意的人特别上心，会用心维护每一段珍贵的关系。有点小占有欲，但这也是因为太在乎。希望和重要的人建立深厚的连接。
-            </p>
-          </article>
-
-          <article class="trait-card" tabindex="0" role="listitem" aria-labelledby="trait-curious-title">
-            <div class="trait-icon icon-curious" aria-hidden="true">
-              <span>🔍</span>
-            </div>
-            <h3 id="trait-curious-title" class="trait-title">好奇心强</h3>
-            <p class="trait-description">
-              对新鲜事物充满好奇，喜欢探索未知领域。看到有趣的东西就想研究一番，学习新技能让我感到兴奋和满足。
-            </p>
-          </article>
-        </div>
-      </div>
-    </section>
-
-    <!-- 交友期望板块 -->
-    <section id="friendship" class="friendship-section" aria-labelledby="friendship-title" role="region">
-      <div class="section-container">
-        <h2 id="friendship-title" class="section-title">交友期望</h2>
-        
-        <div class="friend-type-cards" role="list" aria-label="期望的朋友类型">
-          <article class="friend-type-card" tabindex="0" role="listitem" aria-labelledby="friend-tech-title">
-            <div class="friend-type-icon icon-tech-partner" aria-hidden="true">
-              <span>💻</span>
-            </div>
-            <h3 id="friend-tech-title" class="friend-type-title">技术伙伴</h3>
-            <p class="friend-type-description">
-              希望找到志同道合的技术爱好者，一起探讨AI、编程等话题，分享学习心得，互相进步。不管是大佬还是小白，只要有热情就欢迎！
-            </p>
-          </article>
-
-          <article class="friend-type-card" tabindex="0" role="listitem" aria-labelledby="friend-play-title">
-            <div class="friend-type-icon icon-play-partner" aria-hidden="true">
-              <span>🎮</span>
-            </div>
-            <h3 id="friend-play-title" class="friend-type-title">玩伴</h3>
-            <p class="friend-type-description">
-              想找一起打羽毛球、跑步的运动搭子，或者一起开黑王者、追剧聊天的小伙伴。生活需要有趣的灵魂相伴！
-            </p>
-          </article>
-        </div>
-
-        <div class="friendship-criteria" aria-labelledby="criteria-heading">
-          <h3 id="criteria-heading" class="criteria-title">我看重的品质</h3>
-          <div class="criteria-list" role="list" aria-label="交友标准列表">
-            <div class="criteria-item" role="listitem">
-              <span class="criteria-icon" aria-hidden="true">💎</span>
-              <div class="criteria-content">
-                <span class="criteria-name">真诚</span>
-                <p class="criteria-desc">真心相待，不玩虚的，坦诚交流</p>
-              </div>
-            </div>
-            <div class="criteria-item" role="listitem">
-              <span class="criteria-icon" aria-hidden="true">💬</span>
-              <div class="criteria-content">
-                <span class="criteria-name">共同话题</span>
-                <p class="criteria-desc">有聊不完的话题，相处不尴尬</p>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div class="friendship-cta" role="complementary" aria-label="联系邀请">
-          <p class="cta-text">如果你觉得我们可能聊得来...</p>
-          <a href="#contact" class="cta-button" aria-label="点击跳转到联系方式">✨ 欢迎来找我唠嗑</a>
-        </div>
-      </div>
-    </section>
-  </main>
-
-  <!-- 联系我板块 -->
-  <section id="contact" class="contact-section" aria-labelledby="contact-title" role="region">
-    <div class="section-container">
-      <h2 id="contact-title" class="section-title">联系我</h2>
-      
-      <div class="contact-wrapper">
-        <!-- 联系方式卡片 -->
-        <div class="contact-cards">
-          <a href="weixin://dl/chat?wxlin52o1314" class="contact-card" aria-label="添加微信好友">
-            <div class="contact-card-icon icon-wechat" aria-hidden="true">
-              <span>💬</span>
-            </div>
-            <div class="contact-card-info">
-              <h3 class="contact-card-title">微信</h3>
-              <p class="contact-card-value">wxlin52o1314</p>
-              <p class="contact-card-hint">点击复制微信号</p>
-            </div>
-          </a>
-          
-          <a href="https://github.com/linlong1314" class="contact-card" target="_blank" rel="noopener noreferrer" aria-label="访问GitHub主页">
-            <div class="contact-card-icon icon-github" aria-hidden="true">
-              <span>💻</span>
-            </div>
-            <div class="contact-card-info">
-              <h3 class="contact-card-title">GitHub</h3>
-              <p class="contact-card-value">linlong1314</p>
-              <p class="contact-card-hint">点击访问主页</p>
-            </div>
-          </a>
-          
-          <a href="mailto:linlongxiansheng@163.com" class="contact-card" aria-label="发送邮件">
-            <div class="contact-card-icon icon-email" aria-hidden="true">
-              <span>📧</span>
-            </div>
-            <div class="contact-card-info">
-              <h3 class="contact-card-title">邮箱</h3>
-              <p class="contact-card-value">linlongxiansheng@163.com</p>
-              <p class="contact-card-hint">点击发送邮件</p>
-            </div>
-          </a>
-        </div>
-
-        <!-- 邮件表单 -->
-        <div class="contact-form-wrapper">
-          <h3 class="form-title">📮 给我留言</h3>
-          <form id="contact-form" class="contact-form" aria-label="联系表单">
-            <div class="form-group">
-              <label for="sender-name" class="form-label">你的名字</label>
-              <input type="text" id="sender-name" name="name" class="form-input" placeholder="请输入你的名字" required>
-            </div>
-            
-            <div class="form-group">
-              <label for="sender-email" class="form-label">你的邮箱</label>
-              <input type="email" id="sender-email" name="email" class="form-input" placeholder="请输入你的邮箱" required>
-            </div>
-            
-            <div class="form-group">
-              <label for="message-subject" class="form-label">主题</label>
-              <input type="text" id="message-subject" name="subject" class="form-input" placeholder="请输入邮件主题" required>
-            </div>
-            
-            <div class="form-group">
-              <label for="message-content" class="form-label">留言内容</label>
-              <textarea id="message-content" name="message" class="form-textarea" placeholder="请输入你想说的话..." rows="5" required></textarea>
-            </div>
-            
-            <button type="submit" class="form-submit" id="submit-btn">
-              <span class="btn-text">✨ 发送留言</span>
-              <span class="btn-loading" aria-hidden="true">发送中...</span>
-            </button>
-          </form>
-          
-          <!-- 发送状态提示 -->
-          <div id="form-status" class="form-status" role="alert" aria-live="polite"></div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- 页脚 -->
-  <footer class="site-footer" role="contentinfo" aria-label="页脚">
-    <div class="footer-container">
-      <div class="footer-copyright">
-        <p><span aria-hidden="true">&copy;</span><span class="sr-only">版权所有</span> 2025 我的小天地. 期待与你相遇 <span aria-hidden="true">💜</span></p>
-      </div>
-    </div>
-  </footer>
-
-  <script src="js/color-utils.js"></script>
-  <script src="js/main.js"></script>
-</body>
+        <script src="js/color-utils.js"></script>
+        <script src="js/main.js"></script>
+    </body>
 </html>

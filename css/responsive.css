@@ -8,94 +8,115 @@
    ======================================== */
 
 @media (max-width: 767px) {
-    /* 移动端性能优化 - 禁用或简化复杂动画 */
+    /* ========================================
+       移动端性能优化 - 彻底禁用复杂动画
+       解决闪烁和卡顿问题
+       ======================================== */
     
-    /* 禁用极光背景动画，使用静态背景 */
+    /* 全局禁用复杂动画，使用 GPU 加速 */
+    * {
+        -webkit-transform: translateZ(0);
+        transform: translateZ(0);
+    }
+
+    /* 完全隐藏极光背景 - 这是主要性能杀手 */
     body::after {
-        animation: none !important;
-        background: linear-gradient(
-            135deg,
-            rgba(139, 92, 246, 0.08) 0%,
-            rgba(6, 182, 212, 0.06) 50%,
-            rgba(244, 114, 182, 0.06) 100%
-        );
-        background-size: 100% 100%;
+        display: none !important;
     }
 
-    /* 降低背景效果强度以提升性能 */
-    .glow-orb {
-        opacity: 0.1;
-        filter: blur(60px);
-        /* 禁用浮动动画，减少重绘 */
-        animation: none !important;
-        /* 使用 transform 代替 filter 动画 */
-        will-change: auto;
+    /* 禁用噪点纹理 */
+    body::before {
+        display: none !important;
     }
 
-    .glow-orb-1 {
-        width: 300px;
-        height: 300px;
-        animation: none !important;
-    }
-
-    .glow-orb-2 {
-        width: 250px;
-        height: 250px;
-        animation: none !important;
-    }
-
+    /* 完全隐藏光晕效果 - backdrop-filter 在移动端非常卡 */
+    .glow-orb,
+    .glow-orb-1,
+    .glow-orb-2,
     .glow-orb-3 {
-        width: 200px;
-        height: 200px;
-        animation: none !important;
+        display: none !important;
     }
 
-    /* 禁用光晕的额外层动画 */
-    .glow-orb::after {
-        animation: none !important;
-        opacity: 0.3;
-    }
-
-    /* 粒子效果简化 */
+    /* 隐藏粒子背景 */
+    .particles-bg,
     .particle {
-        /* 禁用浮动动画 */
-        animation: none !important;
-        opacity: 0.1;
-        /* 使用简单的脉冲效果代替复杂动画 */
-    }
-
-    /* 粒子背景容器优化 */
-    .particles-bg {
-        opacity: 0.5;
+        display: none !important;
     }
 
     /* 禁用自我介绍区域的极光动画 */
     .introduction-section::before {
-        animation: none !important;
-        background-size: 100% 100%;
+        display: none !important;
     }
 
-    /* 简化卡片动画 */
+    .introduction-section::after {
+        display: none !important;
+    }
+
+    /* 简化 backdrop-filter - 移动端性能杀手 */
+    .site-header {
+        backdrop-filter: none !important;
+        -webkit-backdrop-filter: none !important;
+        background: rgba(10, 10, 26, 0.95) !important;
+    }
+
+    [data-theme="light"] .site-header {
+        background: rgba(255, 255, 255, 0.95) !important;
+    }
+
+    .intro-card {
+        backdrop-filter: none !important;
+        -webkit-backdrop-filter: none !important;
+        background: rgba(30, 30, 60, 0.9) !important;
+    }
+
+    [data-theme="light"] .intro-card {
+        background: rgba(255, 255, 255, 0.9) !important;
+    }
+
+    /* 禁用卡片伪元素动画 */
+    .intro-card::before,
     .intro-card::after {
-        animation: none !important;
-        display: none;
+        display: none !important;
     }
 
-    /* 简化标签动画 */
+    /* 简化所有卡片的 backdrop-filter */
+    .hobby-card,
+    .trait-card,
+    .friend-type-card,
+    .contact-card,
+    .criteria-item,
+    .friendship-cta,
+    .contact-form-wrapper {
+        backdrop-filter: none !important;
+        -webkit-backdrop-filter: none !important;
+    }
+
+    /* 简化标签 - 禁用所有动画 */
     .intro-tags .tag {
-        animation: fadeInUp 0.5s ease both !important;
+        animation: none !important;
+        opacity: 1 !important;
     }
 
-    .intro-tags .tag:nth-child(1) { animation-delay: 0.1s !important; }
-    .intro-tags .tag:nth-child(2) { animation-delay: 0.15s !important; }
-    .intro-tags .tag:nth-child(3) { animation-delay: 0.2s !important; }
-    .intro-tags .tag:nth-child(4) { animation-delay: 0.25s !important; }
+    .tag {
+        backdrop-filter: none !important;
+        -webkit-backdrop-filter: none !important;
+    }
 
-    /* 简化问候语动画 */
+    .tag::before {
+        display: none !important;
+    }
+
+    .tag:hover {
+        transform: none !important;
+        box-shadow: none !important;
+    }
+
+    /* 简化问候语 - 禁用复杂滤镜 */
     .intro-greeting {
-        animation: fadeInUp 0.6s ease !important;
-        /* 减少滤镜效果 */
-        filter: drop-shadow(0 0 20px rgba(var(--color-primary-rgb), 0.3));
+        animation: none !important;
+        filter: none !important;
+        text-shadow: none !important;
+        opacity: 1 !important;
     }
 
     /* 简化logo动画 */
@@ -103,13 +124,58 @@
         animation: none !important;
     }
 
-    /* 简化标签hover效果 */
-    .tag::before {
-        display: none;
+    .logo-link::after {
+        display: none !important;
     }
 
-    .tag:hover {
-        transform: translateY(-2px) scale(1.02);
+    /* 禁用所有 hover 变换效果 */
+    .nav-link:hover,
+    .hobby-card:hover,
+    .trait-card:hover,
+    .friend-type-card:hover,
+    .contact-card:hover {
+        transform: none !important;
+    }
+
+    /* 简化按钮效果 */
+    .intro-chat-btn,
+    .cta-button,
+    .form-submit {
+        animation: none !important;
+    }
+
+    .intro-chat-btn::before,
+    .cta-button::before,
+    .form-submit::before {
+        display: none !important;
+    }
+
+    /* 禁用脉冲发光动画 */
+    .intro-chat-btn:hover,
+    .cta-button:hover {
+        animation: none !important;
+        box-shadow: var(--shadow-md) !important;
+    }
+
+    /* 简化图标动画 */
+    .hobby-card-icon,
+    .trait-icon,
+    .friend-type-icon,
+    .contact-card-icon {
+        animation: none !important;
+    }
+
+    .hobby-card-icon::before,
+    .trait-icon::before,
+    .friend-type-icon::before,
+    .contact-card-icon::before {
+        display: none !important;
+    }
+
+    /* 简化导航链接效果 */
+    .nav-link::before,
+    .nav-link::after {
+        display: none !important;
     }
 
     /* 导航栏 */
@@ -442,29 +508,7 @@
    ======================================== */
 
 @media (max-width: 374px) {
-    /* 超小屏幕进一步简化动画 */
-    .glow-orb {
-        opacity: 0.08;
-        filter: blur(50px);
-    }
-
-    .glow-orb-1 {
-        width: 200px;
-        height: 200px;
-    }
-
-    .glow-orb-2 {
-        width: 150px;
-        height: 150px;
-    }
-
-    .glow-orb-3 {
-        display: none;
-    }
-
-    .particles-bg {
-        opacity: 0.3;
-    }
+    /* 超小屏幕继承移动端优化，无需重复 */
 
     .intro-greeting {
         font-size: 1.5rem;

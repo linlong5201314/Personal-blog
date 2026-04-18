@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="zh-CN">
+<html lang="zh-CN" data-theme="dark">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
@@ -10,7 +10,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@300;400;500;600;700;900&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="/css/styles.css" />
 </head>
-<body class="font-sans antialiased bg-dark-bg text-gray-100 selection:bg-primary-500 selection:text-white" data-theme="dark">
+<body class="font-sans antialiased overflow-x-hidden bg-white text-black dark:bg-dark-bg dark:text-gray-100 transition-colors duration-500 selection:bg-primary-500 selection:text-white">
 
   <!-- WebGL Background -->
   <div id="webgl-canvas" class="webgl-container"></div>
@@ -23,9 +23,9 @@
   <header class="fixed top-0 w-full z-50 mix-blend-difference px-8 py-6 flex justify-between items-center">
     <div class="font-display font-bold text-xl tracking-tighter">LIN.LONG</div>
     <nav class="hidden md:flex gap-8 text-sm font-medium">
-      <a href="#about" class="hover:text-primary-400 transition-colors">ABOUT</a>
-      <a href="#work" class="hover:text-primary-400 transition-colors">WORK</a>
-      <a href="#contact" class="hover:text-primary-400 transition-colors">CONTACT</a>
+      <a href="#about" class="hover:text-primary-600 dark:hover:text-primary-400 transition-colors">ABOUT</a>
+      <a href="#work" class="hover:text-primary-600 dark:hover:text-primary-400 transition-colors">WORK</a>
+      <a href="#contact" class="hover:text-primary-600 dark:hover:text-primary-400 transition-colors">CONTACT</a>
     </nav>
     <button id="mode-toggle" class="p-2 rounded-full glass-panel hover:scale-110 transition-transform">
       🌙
@@ -41,11 +41,11 @@
           CREATIVE<br />
           <span class="text-gradient">DEVELOPER</span>
         </h1>
-        <p class="hero-desc text-xl md:text-2xl text-gray-400 max-w-2xl font-light">
+        <p class="hero-desc text-xl md:text-2xl text-gray-600 dark:text-gray-400 max-w-2xl font-light">
           Crafting digital experiences with bleeding-edge technology, beautiful animations, and uncompromising performance.
         </p>
         <div class="mt-12 flex gap-6">
-          <a href="#work" class="btn-magnetic bg-white text-black hover:bg-gray-200">
+          <a href="#work" class="btn-magnetic bg-black text-white hover:bg-gray-800 dark:bg-white dark:text-black dark:hover:bg-gray-200">
             Explore Work
           </a>
           <a href="#contact" class="btn-magnetic glass-panel">
@@ -70,28 +70,28 @@
           <img src="https://images.unsplash.com/photo-1550745165-9bc0b252726f?q=80&w=2000&auto=format&fit=crop" class="absolute inset-0 w-full h-full object-cover opacity-40 group-hover:scale-105 transition-transform duration-700" />
           <div class="relative z-10">
             <h3 class="text-3xl font-display font-bold mb-2">Design Engineering</h3>
-            <p class="text-gray-300">Bridging the gap between pixel-perfect design and robust engineering.</p>
+            <p class="text-gray-700 dark:text-gray-300">Bridging the gap between pixel-perfect design and robust engineering.</p>
           </div>
         </div>
         <!-- Bento Item 2 -->
-        <div class="bento-item glass-panel rounded-3xl p-8 flex flex-col justify-end relative overflow-hidden group bg-primary-900/20">
+        <div class="bento-item glass-panel rounded-3xl p-8 flex flex-col justify-end relative overflow-hidden group bg-primary-100 dark:bg-primary-900/20">
           <div class="relative z-10">
-            <h3 class="text-3xl font-display font-bold mb-2 text-primary-400">120Hz</h3>
-            <p class="text-gray-300">Fluid animations & interactions.</p>
+            <h3 class="text-3xl font-display font-bold mb-2 text-primary-600 dark:text-primary-400">120Hz</h3>
+            <p class="text-gray-700 dark:text-gray-300">Fluid animations & interactions.</p>
           </div>
         </div>
         <!-- Bento Item 3 -->
         <div class="bento-item glass-panel rounded-3xl p-8 flex flex-col justify-end relative overflow-hidden group">
-           <img src="https://images.unsplash.com/photo-1555066931-4365d14bab8c?q=80&w=2000&auto=format&fit=crop" class="absolute inset-0 w-full h-full object-cover opacity-40 group-hover:scale-105 transition-transform duration-700" />
+           <img src="https://images.unsplash.com/photo-1555066931-4365d14bab8c?q=80&w=2000&auto=format&fit=crop" class="absolute inset-0 w-full h-full object-cover opacity-10 dark:opacity-40 group-hover:scale-105 transition-transform duration-700" />
            <div class="relative z-10">
             <h3 class="text-3xl font-display font-bold mb-2">Modern Stack</h3>
-            <p class="text-gray-300">React, Three.js, GSAP, Tailwind.</p>
+            <p class="text-gray-700 dark:text-gray-300">React, Three.js, GSAP, Tailwind.</p>
           </div>
         </div>
         <!-- Bento Item 4 -->
         <div class="bento-item md:col-span-2 glass-panel rounded-3xl p-8 flex items-center justify-center relative overflow-hidden group">
            <h2 class="text-4xl md:text-6xl font-display font-bold text-center leading-tight">
-             LET'S BUILD<br/>SOMETHING <span class="text-primary-400 italic">EPIC</span>
+             LET'S BUILD<br/>SOMETHING <span class="text-primary-600 dark:text-primary-400 italic">EPIC</span>
            </h2>
         </div>
       </div>
@@ -134,11 +134,11 @@
     <footer id="contact" class="py-32 px-8 md:px-24 flex flex-col items-center text-center relative overflow-hidden">
       <div class="absolute inset-0 aurora-bg opacity-30 z-[-1]"></div>
       <h2 class="font-display text-6xl md:text-9xl font-black mb-8">SAY HELLO.</h2>
-      <a href="mailto:hello@example.com" class="text-2xl md:text-4xl font-light hover:text-primary-400 transition-colors">hello@example.com</a>
+      <a href="mailto:hello@example.com" class="text-2xl md:text-4xl font-light hover:text-primary-600 dark:hover:text-primary-400 transition-colors">hello@example.com</a>
       <div class="mt-24 flex gap-8 text-sm font-mono">
-        <a href="#" class="hover:text-primary-400">GITHUB</a>
-        <a href="#" class="hover:text-primary-400">TWITTER</a>
-        <a href="#" class="hover:text-primary-400">LINKEDIN</a>
+        <a href="#" class="hover:text-primary-600 dark:hover:text-primary-400">GITHUB</a>
+        <a href="#" class="hover:text-primary-600 dark:hover:text-primary-400">TWITTER</a>
+        <a href="#" class="hover:text-primary-600 dark:hover:text-primary-400">LINKEDIN</a>
       </div>
     </footer>
   </main>

@@ -215,13 +215,9 @@ function initModeToggle() {
     
     if (isDark) {
       root.setAttribute("data-theme", "light");
-      root.classList.remove("bg-dark-bg", "text-gray-100");
-      root.classList.add("bg-white", "text-black");
       btn.textContent = "☀️";
     } else {
       root.setAttribute("data-theme", "dark");
-      root.classList.remove("bg-white", "text-black");
-      root.classList.add("bg-dark-bg", "text-gray-100");
       btn.textContent = "🌙";
     }
   });

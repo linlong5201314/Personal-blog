@@ -3,26 +3,6 @@
 @tailwind utilities;
 
 @layer base {
-  :root {
-    --color-primary: #8b5cf6;
-    --color-bg: #ffffff;
-    --color-text: #1a1a1a;
-    --color-surface: #f4f4f5;
-    --color-border: #e4e4e7;
-  }
-
-  [data-theme="dark"] {
-    --color-primary: #a78bfa;
-    --color-bg: #050505;
-    --color-text: #f3f4f6;
-    --color-surface: #111111;
-    --color-border: #222222;
-  }
-
-  body {
-    @apply bg-[var(--color-bg)] text-[var(--color-text)] transition-colors duration-500 antialiased overflow-x-hidden;
-  }
-
   html.lenis {
     height: auto;
   }
@@ -46,7 +26,7 @@
 
 @layer components {
   .glass-panel {
-    @apply bg-white/5 dark:bg-black/20 backdrop-blur-xl border border-white/10 dark:border-white/5 shadow-2xl;
+    @apply bg-black/5 dark:bg-white/5 backdrop-blur-xl border border-black/10 dark:border-white/10 shadow-2xl;
   }
   
   .text-gradient {
@@ -67,8 +47,8 @@
     rgba(236, 72, 153, 0.15) 100%
   );
   filter: blur(100px);
-  animation: aurora 15s ease infinite;
   background-size: 200% 200%;
+  @apply animate-aurora;
 }
 
 .webgl-container {

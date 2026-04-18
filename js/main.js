@@ -4,7 +4,6 @@ import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import * as THREE from 'three';
 import Lenis from 'lenis';
-import SplitType from 'split-type';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -43,36 +42,38 @@ document.addEventListener("DOMContentLoaded", function () {
 });
 
 function initHeroAnimations() {
-  // Split text for hero title
-  const text = new SplitType('.hero-title', { types: 'words, chars' });
-  
-  gsap.from(text.chars, {
-    y: 100,
+  gsap.from('.hero-kicker', {
+    y: 24,
+    opacity: 0,
+    duration: 0.7,
+    ease: "power2.out"
+  });
+
+  gsap.from('.hero-title', {
+    y: 40,
     opacity: 0,
     duration: 1,
-    stagger: 0.02,
-    ease: "power4.out",
-    delay: 0.2
+    ease: "power3.out",
+    delay: 0.1
   });
 
   gsap.from('.hero-desc', {
-    y: 50,
-    opacity: 0,
-    duration: 1,
-    ease: "power3.out",
-    delay: 0.8
-  });
-
-  gsap.from('.btn-magnetic', {
     y: 30,
     opacity: 0,
-    duration: 1,
-    stagger: 0.1,
+    duration: 0.9,
     ease: "power3.out",
-    delay: 1
+    delay: 0.25
   });
 
-  // Magnetic button effect
+  gsap.from('.info-chip, .btn-magnetic, .hero-panel', {
+    y: 24,
+    opacity: 0,
+    duration: 0.8,
+    stagger: 0.08,
+    ease: "power3.out",
+    delay: 0.4
+  });
+
   const magneticBtns = document.querySelectorAll('.btn-magnetic');
   magneticBtns.forEach(btn => {
     btn.addEventListener('mousemove', (e) => {
@@ -101,7 +102,13 @@ function initHeroAnimations() {
 
 function initWebGLBackground() {
   const container = document.getElementById('webgl-canvas');
-  if (!container) return;
+  if (
+    !container ||
+    window.innerWidth < 1024 ||
+    window.matchMedia('(prefers-reduced-motion: reduce)').matches
+  ) {
+    return;
+  }
 
   const scene = new THREE.Scene();
   const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
@@ -110,9 +117,8 @@ function initWebGLBackground() {
   renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
   container.appendChild(renderer.domElement);
 
-  // Create abstract particles
   const geometry = new THREE.BufferGeometry();
-  const count = 2000;
+  const count = 900;
   const positions = new Float32Array(count * 3);
   
   for(let i = 0; i < count * 3; i++) {
@@ -121,10 +127,10 @@ function initWebGLBackground() {
   geometry.setAttribute('position', new THREE.BufferAttribute(positions, 3));
   
   const material = new THREE.PointsMaterial({
-    size: 0.02,
+    size: 0.018,
     color: 0x8b5cf6,
     transparent: true,
-    opacity: 0.5,
+    opacity: 0.22,
     blending: THREE.AdditiveBlending
   });
   
@@ -143,12 +149,10 @@ function initWebGLBackground() {
   function animate() {
     requestAnimationFrame(animate);
     
-    particles.rotation.x += 0.0005;
-    particles.rotation.y += 0.0005;
-    
-    // Interactive camera
-    camera.position.x += (mouseX * 0.5 - camera.position.x) * 0.05;
-    camera.position.y += (mouseY * 0.5 - camera.position.y) * 0.05;
+    particles.rotation.x += 0.0002;
+    particles.rotation.y += 0.00035;
+    camera.position.x += (mouseX * 0.22 - camera.position.x) * 0.03;
+    camera.position.y += (mouseY * 0.18 - camera.position.y) * 0.03;
     camera.lookAt(scene.position);
 
     renderer.render(scene, camera);
@@ -163,7 +167,6 @@ function initWebGLBackground() {
 }
 
 function initScrollAnimations() {
-  // Parallax Images
   gsap.utils.toArray('[data-speed]').forEach(el => {
     gsap.to(el, {
       y: (i, target) => -ScrollTrigger.maxScroll(window) * target.dataset.speed,
@@ -177,29 +180,16 @@ function initScrollAnimations() {
     });
   });
 
-  // Bento Box reveal
-  gsap.from('.bento-item', {
-    y: 100,
-    opacity: 0,
-    duration: 1,
-    stagger: 0.1,
-    ease: "power3.out",
-    scrollTrigger: {
-      trigger: '#about',
-      start: "top 70%",
-    }
-  });
-
-  // Projects reveal
-  gsap.utils.toArray('.project-item').forEach(project => {
-    gsap.from(project, {
-      y: 100,
+  gsap.utils.toArray('.reveal-card').forEach((card, index) => {
+    gsap.from(card, {
+      y: 48,
       opacity: 0,
-      duration: 1.2,
+      duration: 0.9,
       ease: "power3.out",
+      delay: index % 3 === 0 ? 0 : 0.05,
       scrollTrigger: {
-        trigger: project,
-        start: "top 80%",
+        trigger: card,
+        start: "top 86%",
       }
     });
   });
@@ -208,6 +198,8 @@ function initScrollAnimations() {
 function initModeToggle() {
   const btn = document.getElementById("mode-toggle");
   if (!btn) return;
+  btn.textContent =
+    document.documentElement.getAttribute("data-theme") === "dark" ? "🌙" : "☀️";
 
   btn.addEventListener("click", function () {
     const root = document.documentElement;

@@ -3,6 +3,17 @@
 @tailwind utilities;
 
 @layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    @apply min-h-screen bg-white text-slate-900 dark:bg-dark-bg dark:text-slate-100;
+    background-image:
+      radial-gradient(circle at top left, rgba(139, 92, 246, 0.12), transparent 30%),
+      radial-gradient(circle at bottom right, rgba(59, 130, 246, 0.1), transparent 28%);
+  }
+
   html.lenis {
     height: auto;
   }
@@ -25,20 +36,139 @@
 }
 
 @layer components {
+  .site-header-shell {
+    @apply fixed inset-x-0 top-0 z-50 px-4 py-4 md:px-8;
+  }
+
+  .site-header-inner {
+    @apply mx-auto flex max-w-6xl items-center justify-between rounded-full border border-slate-200/70 bg-white/80 px-5 py-3 shadow-lg shadow-slate-200/40 backdrop-blur-xl dark:border-white/10 dark:bg-slate-950/70 dark:shadow-black/20;
+  }
+
+  .nav-link {
+    @apply transition-colors duration-300 hover:text-primary-600 dark:hover:text-primary-400;
+  }
+
+  .mode-button {
+    @apply inline-flex h-11 w-11 items-center justify-center rounded-full border border-slate-200 bg-white text-base shadow-sm transition-transform duration-300 hover:scale-105 dark:border-white/10 dark:bg-white/5;
+  }
+
+  .section-shell {
+    @apply mx-auto w-full max-w-6xl px-4 md:px-8;
+  }
+
+  .section-heading {
+    @apply max-w-3xl;
+  }
+
+  .section-eyebrow {
+    @apply text-sm font-semibold uppercase tracking-[0.24em] text-primary-600 dark:text-primary-400;
+  }
+
+  .section-title {
+    @apply mt-3 font-display text-4xl font-bold leading-tight text-slate-950 dark:text-white md:text-6xl;
+  }
+
+  .section-summary {
+    @apply mt-4 text-base leading-8 text-slate-600 dark:text-slate-300 md:text-lg;
+  }
+
+  .hero-kicker {
+    @apply inline-flex rounded-full border border-primary-200 bg-primary-50 px-4 py-2 text-sm font-semibold text-primary-700 dark:border-primary-500/20 dark:bg-primary-500/10 dark:text-primary-300;
+  }
+
   .glass-panel {
-    @apply bg-black/5 dark:bg-white/5 backdrop-blur-xl border border-black/10 dark:border-white/10 shadow-2xl;
+    @apply border border-slate-200/70 bg-white/70 shadow-lg shadow-slate-200/40 backdrop-blur-xl dark:border-white/10 dark:bg-white/5 dark:shadow-black/20;
   }
-  
+
   .text-gradient {
-    @apply bg-clip-text text-transparent bg-gradient-to-r from-primary-400 via-purple-500 to-indigo-600;
+    @apply bg-gradient-to-r from-primary-500 via-fuchsia-500 to-sky-500 bg-clip-text text-transparent;
   }
-  
+
   .btn-magnetic {
-    @apply relative overflow-hidden inline-flex items-center justify-center px-8 py-4 font-medium rounded-full transition-transform duration-300;
+    @apply inline-flex items-center justify-center rounded-full px-7 py-3.5 text-sm font-semibold transition-all duration-300;
+  }
+
+  .primary-button {
+    @apply bg-slate-950 text-white shadow-lg shadow-slate-400/20 hover:-translate-y-0.5 hover:bg-slate-800 dark:bg-white dark:text-slate-950 dark:hover:bg-slate-200;
+  }
+
+  .secondary-button {
+    @apply glass-panel text-slate-900 hover:-translate-y-0.5 dark:text-white;
+  }
+
+  .hero-panel {
+    @apply glass-panel relative overflow-hidden rounded-[2rem] p-5 md:p-6;
+  }
+
+  .hero-photo-wrap {
+    @apply overflow-hidden rounded-[1.5rem];
+  }
+
+  .hero-photo {
+    @apply h-[320px] w-full object-cover transition-transform duration-700 hover:scale-105 md:h-[420px];
+  }
+
+  .panel-label {
+    @apply text-sm font-semibold uppercase tracking-[0.24em] text-primary-600 dark:text-primary-400;
+  }
+
+  .mini-card {
+    @apply rounded-2xl border border-slate-200/70 bg-slate-50/90 px-4 py-4 dark:border-white/10 dark:bg-white/5;
+  }
+
+  .mini-card-title {
+    @apply block text-xs font-medium uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400;
+  }
+
+  .mini-card-value {
+    @apply mt-2 block text-base font-semibold text-slate-900 dark:text-white;
+  }
+
+  .info-chip {
+    @apply rounded-full border border-slate-200 bg-white/80 px-4 py-2 text-sm text-slate-700 shadow-sm dark:border-white/10 dark:bg-white/5 dark:text-slate-200;
+  }
+
+  .content-card {
+    @apply glass-panel rounded-[2rem] p-6 md:p-8;
+  }
+
+  .card-kicker {
+    @apply text-sm font-semibold uppercase tracking-[0.22em] text-primary-600 dark:text-primary-400;
+  }
+
+  .content-title {
+    @apply mt-3 text-2xl font-semibold leading-tight text-slate-950 dark:text-white md:text-3xl;
+  }
+
+  .content-text {
+    @apply mt-4 text-base leading-8 text-slate-600 dark:text-slate-300;
+  }
+
+  .feature-photo-card {
+    @apply glass-panel overflow-hidden rounded-[2rem] p-3 md:p-4;
+  }
+
+  .feature-photo {
+    @apply h-full min-h-[420px] w-full rounded-[1.5rem] object-cover;
+  }
+
+  .contact-card {
+    @apply glass-panel flex min-h-[220px] flex-col justify-between rounded-[2rem] p-6 transition-transform duration-300 hover:-translate-y-1;
+  }
+
+  .contact-label {
+    @apply text-sm font-semibold uppercase tracking-[0.22em] text-primary-600 dark:text-primary-400;
+  }
+
+  .contact-value {
+    @apply mt-4 block text-lg font-semibold leading-8 text-slate-950 dark:text-white break-all;
+  }
+
+  .contact-hint {
+    @apply mt-3 block text-sm leading-7 text-slate-500 dark:text-slate-400;
   }
 }
 
-/* Custom Effects */
 .aurora-bg {
   background: linear-gradient(
     45deg,
@@ -51,6 +181,31 @@
   @apply animate-aurora;
 }
 
+.page-glow {
+  position: fixed;
+  z-index: -2;
+  pointer-events: none;
+  border-radius: 9999px;
+  filter: blur(80px);
+  opacity: 0.75;
+}
+
+.page-glow-top {
+  top: -8rem;
+  left: -6rem;
+  width: 22rem;
+  height: 22rem;
+  background: rgba(139, 92, 246, 0.22);
+}
+
+.page-glow-bottom {
+  right: -6rem;
+  bottom: -10rem;
+  width: 24rem;
+  height: 24rem;
+  background: rgba(56, 189, 248, 0.16);
+}
+
 .webgl-container {
   position: fixed;
   top: 0;
@@ -59,4 +214,18 @@
   height: 100vh;
   z-index: -1;
   pointer-events: none;
+  opacity: 0.55;
+}
+
+@media (max-width: 768px) {
+  .page-glow-top,
+  .page-glow-bottom {
+    width: 14rem;
+    height: 14rem;
+    filter: blur(60px);
+  }
+
+  .webgl-container {
+    opacity: 0.28;
+  }
 }

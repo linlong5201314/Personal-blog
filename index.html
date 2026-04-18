@@ -4,130 +4,193 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
   <meta name="theme-color" content="#050505" />
-  <title>林龙 | Creative Developer</title>
+  <meta
+    name="description"
+    content="林龙的个人主页，介绍兴趣爱好、个人特质、交友期望与联系方式。"
+  />
+  <title>林龙 | 个人主页</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@300;400;500;600;700;900&display=swap" rel="stylesheet" />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;700&display=swap"
+    rel="stylesheet"
+  />
   <link rel="stylesheet" href="/css/styles.css" />
 </head>
-<body class="font-sans antialiased overflow-x-hidden bg-white text-black dark:bg-dark-bg dark:text-gray-100 transition-colors duration-500 selection:bg-primary-500 selection:text-white">
+<body class="font-sans antialiased overflow-x-hidden bg-white text-slate-900 dark:bg-dark-bg dark:text-slate-100 transition-colors duration-500 selection:bg-primary-500 selection:text-white">
+  <div id="webgl-canvas" class="webgl-container" aria-hidden="true"></div>
+  <div class="page-glow page-glow-top" aria-hidden="true"></div>
+  <div class="page-glow page-glow-bottom" aria-hidden="true"></div>
 
-  <!-- WebGL Background -->
-  <div id="webgl-canvas" class="webgl-container"></div>
-  
-  <!-- Aurora Blurs -->
-  <div class="fixed top-0 left-0 w-[50vw] h-[50vh] aurora-bg rounded-full -translate-x-1/2 -translate-y-1/2 pointer-events-none z-[-1]"></div>
-  <div class="fixed bottom-0 right-0 w-[60vw] h-[60vh] aurora-bg rounded-full translate-x-1/4 translate-y-1/4 opacity-50 pointer-events-none z-[-1]"></div>
-
-  <!-- Header -->
-  <header class="fixed top-0 w-full z-50 mix-blend-difference px-8 py-6 flex justify-between items-center">
-    <div class="font-display font-bold text-xl tracking-tighter">LIN.LONG</div>
-    <nav class="hidden md:flex gap-8 text-sm font-medium">
-      <a href="#about" class="hover:text-primary-600 dark:hover:text-primary-400 transition-colors">ABOUT</a>
-      <a href="#work" class="hover:text-primary-600 dark:hover:text-primary-400 transition-colors">WORK</a>
-      <a href="#contact" class="hover:text-primary-600 dark:hover:text-primary-400 transition-colors">CONTACT</a>
-    </nav>
-    <button id="mode-toggle" class="p-2 rounded-full glass-panel hover:scale-110 transition-transform">
-      🌙
-    </button>
+  <header class="site-header-shell">
+    <div class="site-header-inner">
+      <a href="#top" class="font-display text-xl font-bold tracking-tight">林龙</a>
+      <nav class="hidden items-center gap-6 md:flex text-sm text-slate-600 dark:text-slate-300">
+        <a href="#about" class="nav-link">关于我</a>
+        <a href="#life" class="nav-link">兴趣爱好</a>
+        <a href="#contact" class="nav-link">联系我</a>
+      </nav>
+      <button
+        id="mode-toggle"
+        type="button"
+        class="mode-button"
+        aria-label="切换深浅色模式"
+      >
+        🌙
+      </button>
+    </div>
   </header>
 
-  <!-- Main Content -->
-  <main>
-    <!-- Hero Section -->
-    <section class="h-screen flex flex-col justify-center px-8 md:px-24 relative overflow-hidden">
-      <div class="z-10 max-w-5xl">
-        <h1 class="hero-title font-display text-5xl md:text-[7rem] font-black leading-[1.1] tracking-tighter mb-6">
-          嗨~欢迎来到<br />
-          <span class="text-gradient">我的小天地！✨</span>
-        </h1>
-        <p class="hero-desc text-xl md:text-2xl text-gray-600 dark:text-gray-400 max-w-2xl font-light">
-          我是一个热爱生活、喜欢交朋友的人。喜欢羽毛球、跑步，爱刷抖音、追剧，也爱玩王者荣耀。最近对 AI 特别感兴趣，喜欢捣鼓各种小玩意。
+  <main id="top" class="relative z-10">
+    <section class="section-shell min-h-screen pt-28 md:pt-36">
+      <div class="grid items-center gap-12 lg:grid-cols-[1.1fr_0.9fr]">
+        <div class="hero-copy max-w-3xl">
+          <p class="hero-kicker">个人介绍 / Personal Space</p>
+          <h1 class="hero-title mt-4 font-display text-5xl font-bold leading-tight tracking-tight text-slate-950 dark:text-white md:text-7xl">
+            嗨，欢迎来到
+            <span class="text-gradient block">我的小天地</span>
+          </h1>
+          <div class="hero-desc mt-6 space-y-4 text-lg leading-8 text-slate-600 dark:text-slate-300 md:text-xl">
+            <p>我是一个热爱生活、喜欢交朋友的人。</p>
+            <p>平时喜欢打羽毛球、跑步，也爱刷抖音、追剧，偶尔还会玩玩王者荣耀。</p>
+            <p>最近对 AI 特别感兴趣，喜欢捣鼓各种有意思的小玩意，也愿意分享和交流。</p>
+          </div>
+          <div class="mt-8 flex flex-wrap gap-3">
+            <span class="info-chip">🏸 羽毛球</span>
+            <span class="info-chip">🏃 跑步</span>
+            <span class="info-chip">🎮 王者荣耀</span>
+            <span class="info-chip">🤖 AI 探索</span>
+            <span class="info-chip">🎬 追剧刷视频</span>
+          </div>
+          <div class="mt-10 flex flex-wrap gap-4">
+            <a href="#about" class="btn-magnetic primary-button">了解更多</a>
+            <a href="#contact" class="btn-magnetic secondary-button">联系我</a>
+          </div>
+        </div>
+
+        <aside class="hero-panel reveal-card">
+          <div class="hero-photo-wrap">
+            <img
+              src="https://images.unsplash.com/photo-1516321318423-f06f85e504b3?q=80&w=1200&auto=format&fit=crop"
+              alt="温暖安静的生活氛围照片"
+              class="hero-photo"
+              loading="eager"
+            />
+          </div>
+          <div class="mt-6 space-y-5">
+            <div>
+              <p class="panel-label">给你的第一印象</p>
+              <h2 class="text-2xl font-semibold text-slate-900 dark:text-white">真诚、舒服、好聊</h2>
+            </div>
+            <p class="text-base leading-7 text-slate-600 dark:text-slate-300">
+              我更喜欢有温度的表达，所以这个页面不想做成冷冰冰的模板，而是把我真实的爱好、性格和想法都放进来。
+            </p>
+            <div class="grid grid-cols-2 gap-3">
+              <div class="mini-card">
+                <span class="mini-card-title">性格</span>
+                <span class="mini-card-value">友好有耐心</span>
+              </div>
+              <div class="mini-card">
+                <span class="mini-card-title">相处方式</span>
+                <span class="mini-card-value">重视羁绊</span>
+              </div>
+            </div>
+          </div>
+        </aside>
+      </div>
+    </section>
+
+    <section id="about" class="section-shell py-20 md:py-28">
+      <div class="section-heading">
+        <p class="section-eyebrow">关于我</p>
+        <h2 class="section-title">不是套模板的“人设”，而是真实的我</h2>
+        <p class="section-summary">
+          我希望这个页面看起来像我本人，而不是像随便拼接出来的展示页。
         </p>
-        <div class="mt-12 flex gap-6">
-          <a href="#about" class="btn-magnetic bg-black text-white hover:bg-gray-800 dark:bg-white dark:text-black dark:hover:bg-gray-200">
-            了解更多
-          </a>
-          <a href="#contact" class="btn-magnetic glass-panel">
-            与我聊天 💬
-          </a>
-        </div>
       </div>
-      
-      <!-- Hero Image Parallax -->
-      <div class="absolute right-0 top-1/2 -translate-y-1/2 w-1/3 h-[70vh] hidden lg:block opacity-80" data-speed="0.5">
-        <img src="https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=2564&auto=format&fit=crop" alt="Abstract Art" class="w-full h-full object-cover rounded-3xl glass-panel grayscale hover:grayscale-0 transition-all duration-700" />
+
+      <div class="mt-10 grid gap-6 lg:grid-cols-3">
+        <article class="content-card reveal-card lg:col-span-2">
+          <p class="card-kicker">个人特质</p>
+          <h3 class="content-title">友好、耐心，也愿意认真对待关系</h3>
+          <p class="content-text">
+            性格上，我待人友好，乐于交流和帮助他人；做事有耐心，喜欢慢慢琢磨把问题理顺。
+            对在意的人我会特别重视，也会认真维护每一段珍贵的关系。
+          </p>
+        </article>
+        <article class="content-card reveal-card">
+          <p class="card-kicker">最近状态</p>
+          <h3 class="content-title">对 AI 很上头</h3>
+          <p class="content-text">
+            最近会花很多时间折腾 AI 相关内容，看到新工具、新玩法都会想亲手试一试。
+          </p>
+        </article>
       </div>
     </section>
 
-    <!-- About Section (Bento Box) -->
-    <section id="about" class="min-h-screen py-32 px-8 md:px-24">
-      <h2 class="section-title font-display text-5xl md:text-7xl font-bold mb-16">个人特质<br/>& 兴趣爱好</h2>
-      
-      <div class="grid grid-cols-1 md:grid-cols-3 gap-6 auto-rows-[300px]">
-        <!-- Bento Item 1 -->
-        <div class="bento-item md:col-span-2 glass-panel rounded-3xl p-8 flex flex-col justify-end relative overflow-hidden group">
-          <img src="https://images.unsplash.com/photo-1550745165-9bc0b252726f?q=80&w=2000&auto=format&fit=crop" class="absolute inset-0 w-full h-full object-cover opacity-40 group-hover:scale-105 transition-transform duration-700" />
-          <div class="relative z-10">
-            <h3 class="text-3xl font-display font-bold mb-2">友好与耐心</h3>
-            <p class="text-gray-700 dark:text-gray-300">性格上，我待人友好，乐于交流和帮助他人；做事有耐心，喜欢慢慢琢磨解决问题。</p>
-          </div>
-        </div>
-        <!-- Bento Item 2 -->
-        <div class="bento-item glass-panel rounded-3xl p-8 flex flex-col justify-end relative overflow-hidden group bg-primary-100 dark:bg-primary-900/20">
-          <div class="relative z-10">
-            <h3 class="text-3xl font-display font-bold mb-2 text-primary-600 dark:text-primary-400">运动达人</h3>
-            <p class="text-gray-700 dark:text-gray-300">🏸 羽毛球、跑步</p>
-          </div>
-        </div>
-        <!-- Bento Item 3 -->
-        <div class="bento-item glass-panel rounded-3xl p-8 flex flex-col justify-end relative overflow-hidden group">
-           <img src="https://images.unsplash.com/photo-1555066931-4365d14bab8c?q=80&w=2000&auto=format&fit=crop" class="absolute inset-0 w-full h-full object-cover opacity-10 dark:opacity-40 group-hover:scale-105 transition-transform duration-700" />
-           <div class="relative z-10">
-            <h3 class="text-3xl font-display font-bold mb-2">娱乐与技术</h3>
-            <p class="text-gray-700 dark:text-gray-300">🎮 王者荣耀、AI 探索、追剧</p>
-          </div>
-        </div>
-        <!-- Bento Item 4 -->
-        <div class="bento-item md:col-span-2 glass-panel rounded-3xl p-8 flex items-center justify-center relative overflow-hidden group">
-           <h2 class="text-4xl md:text-5xl font-display font-bold text-center leading-tight">
-             对在意的人特别<span class="text-primary-600 dark:text-primary-400 italic">重视羁绊</span><br/>
-             会用心维护每一段<br/>珍贵的关系。
-           </h2>
-        </div>
-      </div>
-    </section>
-
-    <!-- Work Section -->
-    <section id="work" class="py-32 px-8 md:px-24 bg-white text-black dark:bg-[#0a0a0a] dark:text-white transition-colors duration-500">
-      <h2 class="section-title font-display text-5xl md:text-7xl font-bold mb-16">交友期望<br/>与联系方式</h2>
-      
-      <div class="space-y-32">
-        <!-- Project 1 -->
-        <div class="project-item group flex flex-col md:flex-row gap-12 items-center">
-          <div class="w-full md:w-1/2 overflow-hidden rounded-3xl h-[60vh]">
-            <img src="https://images.unsplash.com/photo-1600132806370-bf17e65e942f?q=80&w=2000&auto=format&fit=crop" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-1000" />
-          </div>
-          <div class="w-full md:w-1/2 space-y-6">
-            <div class="text-sm font-mono tracking-widest text-primary-500">FRIENDSHIP</div>
-            <h3 class="text-5xl font-display font-bold">期待遇见你</h3>
-            <p class="text-gray-500 dark:text-gray-400 text-lg">如果你也喜欢聊技术、打游戏，或者只是想找个人唠唠嗑，欢迎来认识我！真诚交友，互相学习，共同进步。</p>
-            <a href="#contact" class="inline-block mt-4 border-b border-black dark:border-white pb-1 font-medium hover:text-primary-500 hover:border-primary-500 transition-colors">联系我 💬</a>
-          </div>
+    <section id="life" class="section-shell py-6 md:py-8">
+      <div class="grid gap-6 lg:grid-cols-[0.95fr_1.05fr]">
+        <article class="feature-photo-card reveal-card">
+          <img
+            src="https://images.unsplash.com/photo-1517649763962-0c623066013b?q=80&w=1400&auto=format&fit=crop"
+            alt="运动与生活方式照片"
+            class="feature-photo"
+            loading="lazy"
+          />
+        </article>
+        <div class="grid gap-6 sm:grid-cols-2">
+          <article class="content-card reveal-card">
+            <p class="card-kicker">兴趣爱好</p>
+            <h3 class="content-title">运动让我舒服下来</h3>
+            <p class="content-text">羽毛球和跑步是我比较稳定的快乐来源，既解压，也能让状态更清醒。</p>
+          </article>
+          <article class="content-card reveal-card">
+            <p class="card-kicker">日常娱乐</p>
+            <h3 class="content-title">追剧、刷视频、打游戏</h3>
+            <p class="content-text">生活里也需要轻松的部分，我会刷抖音、追剧，偶尔玩玩王者荣耀放松一下。</p>
+          </article>
+          <article class="content-card reveal-card sm:col-span-2">
+            <p class="card-kicker">交友期望</p>
+            <h3 class="content-title">如果你也喜欢交流，我们可以认识一下</h3>
+            <p class="content-text">
+              如果你也喜欢聊技术、聊 AI、聊游戏，或者只是想找个人轻松说说话，都欢迎来认识我。
+              我更喜欢真诚自然的交流方式，不需要拘谨，舒服就好。
+            </p>
+          </article>
         </div>
       </div>
     </section>
 
-    <!-- Footer -->
-    <footer id="contact" class="py-32 px-8 md:px-24 flex flex-col items-center text-center relative overflow-hidden">
-      <div class="absolute inset-0 aurora-bg opacity-30 z-[-1]"></div>
-      <h2 class="font-display text-6xl md:text-9xl font-black mb-8">SAY HELLO.</h2>
-      <a href="mailto:linlongxiansheng@163.com" class="text-2xl md:text-4xl font-light hover:text-primary-600 dark:hover:text-primary-400 transition-colors">linlongxiansheng@163.com</a>
-      <div class="mt-24 flex gap-8 text-sm font-mono">
-        <a href="https://github.com/linlong1314" target="_blank" class="hover:text-primary-600 dark:hover:text-primary-400">GITHUB</a>
-        <a href="weixin://dl/chat?wxlin52o1314" class="hover:text-primary-600 dark:hover:text-primary-400">WECHAT: wxlin52o1314</a>
+    <section id="contact" class="section-shell py-20 md:py-28">
+      <div class="section-heading">
+        <p class="section-eyebrow">联系我</p>
+        <h2 class="section-title">欢迎来找我聊天</h2>
+        <p class="section-summary">可以聊生活、聊兴趣，也可以聊技术和 AI。</p>
       </div>
-    </footer>
+
+      <div class="mt-10 grid gap-6 md:grid-cols-3">
+        <a href="weixin://dl/chat?wxlin52o1314" class="contact-card reveal-card">
+          <span class="contact-label">微信</span>
+          <strong class="contact-value">wxlin52o1314</strong>
+          <span class="contact-hint">如果手机支持，可直接拉起微信</span>
+        </a>
+        <a href="mailto:linlongxiansheng@163.com" class="contact-card reveal-card">
+          <span class="contact-label">邮箱</span>
+          <strong class="contact-value">linlongxiansheng@163.com</strong>
+          <span class="contact-hint">欢迎直接给我发邮件</span>
+        </a>
+        <a
+          href="https://github.com/linlong1314"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="contact-card reveal-card"
+        >
+          <span class="contact-label">GitHub</span>
+          <strong class="contact-value">linlong1314</strong>
+          <span class="contact-hint">看看我最近折腾了什么</span>
+        </a>
+      </div>
+    </section>
   </main>
 
   <script type="module" src="/js/main.js"></script>

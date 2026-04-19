@@ -14,6 +14,11 @@
       radial-gradient(circle at bottom right, rgba(59, 130, 246, 0.1), transparent 28%);
   }
 
+  img {
+    display: block;
+    max-width: 100%;
+  }
+
   html.lenis {
     height: auto;
   }
@@ -33,6 +38,14 @@
   .lenis.lenis-scrolling iframe {
     pointer-events: none;
   }
+
+  a:focus-visible,
+  button:focus-visible,
+  [tabindex="0"]:focus-visible {
+    outline: 2px solid rgb(139 92 246 / 0.95);
+    outline-offset: 4px;
+    box-shadow: 0 0 0 6px rgb(139 92 246 / 0.12);
+  }
 }
 
 @layer components {
@@ -41,11 +54,15 @@
   }
 
   .site-header-inner {
-    @apply mx-auto flex max-w-6xl items-center justify-between rounded-full border border-slate-200/70 bg-white/80 px-5 py-3 shadow-lg shadow-slate-200/40 backdrop-blur-xl dark:border-white/10 dark:bg-slate-950/70 dark:shadow-black/20;
+    @apply mx-auto flex max-w-6xl flex-wrap items-center justify-between gap-3 rounded-[1.75rem] border border-slate-200/70 bg-white/80 px-5 py-3 shadow-lg shadow-slate-200/40 backdrop-blur-xl dark:border-white/10 dark:bg-slate-950/70 dark:shadow-black/20 md:flex-nowrap md:rounded-full;
   }
 
   .nav-link {
     @apply transition-colors duration-300 hover:text-primary-600 dark:hover:text-primary-400;
+  }
+
+  .skip-link {
+    @apply fixed left-4 top-4 z-[60] -translate-y-24 rounded-full bg-slate-950 px-4 py-2 text-sm font-medium text-white transition-transform duration-200 focus:translate-y-0 dark:bg-white dark:text-slate-950;
   }
 
   .mode-button {
@@ -97,11 +114,11 @@
   }
 
   .hero-panel {
-    @apply glass-panel relative overflow-hidden rounded-[2rem] p-5 md:p-6;
+    @apply glass-panel relative min-w-0 overflow-hidden rounded-[2rem] p-5 md:p-6;
   }
 
   .hero-photo-wrap {
-    @apply overflow-hidden rounded-[1.5rem];
+    @apply w-full overflow-hidden rounded-[1.5rem];
   }
 
   .hero-photo {
@@ -188,6 +205,7 @@
   border-radius: 9999px;
   filter: blur(80px);
   opacity: 0.75;
+  max-width: 100vw;
 }
 
 .page-glow-top {
@@ -218,6 +236,15 @@
 }
 
 @media (max-width: 768px) {
+  .site-header-inner {
+    align-items: flex-start;
+  }
+
+  .nav-links {
+    width: 100%;
+    flex-wrap: wrap;
+  }
+
   .page-glow-top,
   .page-glow-bottom {
     width: 14rem;

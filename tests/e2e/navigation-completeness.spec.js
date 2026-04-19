@@ -43,7 +43,7 @@ test.describe('Property 5: Navigation Link Completeness', () => {
   // Property test: All nav links point to existing sections
   test('all navigation links point to existing sections', async ({ page }) => {
     // Get all navigation links
-    const navLinks = page.locator('nav .nav-links a.nav-link');
+    const navLinks = page.locator('nav a.nav-link');
     const linkCount = await navLinks.count();
 
     expect(linkCount).toBeGreaterThan(0);
@@ -89,7 +89,7 @@ test.describe('Property 5: Navigation Link Completeness', () => {
 
   // Property test: Number of nav links equals number of main sections
   test('navigation has exactly one link per main section', async ({ page }) => {
-    const navLinks = page.locator('nav .nav-links a.nav-link');
+    const navLinks = page.locator('nav a.nav-link');
     const linkCount = await navLinks.count();
 
     // Should have exactly 4 links for 4 main sections

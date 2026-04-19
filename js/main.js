@@ -38,6 +38,7 @@ document.addEventListener("DOMContentLoaded", function () {
   initHeroAnimations();
   initWebGLBackground();
   initScrollAnimations();
+  initAnchorNavigation();
   initModeToggle();
 });
 
@@ -191,6 +192,34 @@ function initScrollAnimations() {
         trigger: card,
         start: "top 86%",
       }
+    });
+  });
+}
+
+function initAnchorNavigation() {
+  const anchorLinks = document.querySelectorAll('a[href^="#"]');
+  const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  anchorLinks.forEach((link) => {
+    link.addEventListener('click', (event) => {
+      const href = link.getAttribute('href');
+      if (!href || href === '#') return;
+
+      const target = document.querySelector(href);
+      if (!target) return;
+
+      event.preventDefault();
+      const targetTop = target.getBoundingClientRect().top + window.scrollY - 96;
+
+      if (prefersReducedMotion) {
+        window.scrollTo({ top: targetTop, behavior: 'auto' });
+        return;
+      }
+
+      lenis.scrollTo(targetTop, {
+        duration: 0.35,
+        lerp: 0.18
+      });
     });
   });
 }

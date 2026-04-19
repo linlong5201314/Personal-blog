@@ -18,17 +18,19 @@
   <link rel="stylesheet" href="/css/styles.css" />
 </head>
 <body class="font-sans antialiased overflow-x-hidden bg-white text-slate-900 dark:bg-dark-bg dark:text-slate-100 transition-colors duration-500 selection:bg-primary-500 selection:text-white">
+  <a href="#main-content" class="skip-link">跳转到主要内容</a>
   <div id="webgl-canvas" class="webgl-container" aria-hidden="true"></div>
   <div class="page-glow page-glow-top" aria-hidden="true"></div>
   <div class="page-glow page-glow-bottom" aria-hidden="true"></div>
 
   <header class="site-header-shell">
     <div class="site-header-inner">
-      <a href="#top" class="font-display text-xl font-bold tracking-tight">林龙</a>
-      <nav class="hidden items-center gap-6 md:flex text-sm text-slate-600 dark:text-slate-300">
-        <a href="#about" class="nav-link">关于我</a>
-        <a href="#life" class="nav-link">兴趣爱好</a>
-        <a href="#contact" class="nav-link">联系我</a>
+      <a href="#introduction" class="logo-link font-display text-xl font-bold tracking-tight">林龙</a>
+      <nav class="nav-links flex items-center gap-4 text-sm text-slate-600 dark:text-slate-300 md:gap-6" role="navigation" aria-label="主导航">
+        <a href="#introduction" class="nav-link">关于我</a>
+        <a href="#hobbies" class="nav-link">兴趣爱好</a>
+        <a href="#traits" class="nav-link">个人特质</a>
+        <a href="#friendship" class="nav-link">交友期望</a>
       </nav>
       <button
         id="mode-toggle"
@@ -41,12 +43,12 @@
     </div>
   </header>
 
-  <main id="top" class="relative z-10">
-    <section class="section-shell min-h-screen pt-28 md:pt-36">
+  <main id="main-content" class="relative z-10">
+    <section id="introduction" class="section-shell min-h-screen pt-32 md:pt-36">
       <div class="grid items-center gap-12 lg:grid-cols-[1.1fr_0.9fr]">
         <div class="hero-copy max-w-3xl">
           <p class="hero-kicker">个人介绍 / Personal Space</p>
-          <h1 class="hero-title mt-4 font-display text-5xl font-bold leading-tight tracking-tight text-slate-950 dark:text-white md:text-7xl">
+          <h1 class="intro-greeting hero-title mt-4 font-display text-5xl font-bold leading-tight tracking-tight text-slate-950 dark:text-white md:text-7xl">
             嗨，欢迎来到
             <span class="text-gradient block">我的小天地</span>
           </h1>
@@ -63,7 +65,7 @@
             <span class="info-chip">🎬 追剧刷视频</span>
           </div>
           <div class="mt-10 flex flex-wrap gap-4">
-            <a href="#about" class="btn-magnetic primary-button">了解更多</a>
+            <a href="#traits" class="cta-button btn-magnetic primary-button">了解更多</a>
             <a href="#contact" class="btn-magnetic secondary-button">联系我</a>
           </div>
         </div>
@@ -100,7 +102,7 @@
       </div>
     </section>
 
-    <section id="about" class="section-shell py-20 md:py-28">
+    <section id="traits" class="section-shell py-20 md:py-28">
       <div class="section-heading">
         <p class="section-eyebrow">关于我</p>
         <h2 class="section-title">不是套模板的“人设”，而是真实的我</h2>
@@ -110,7 +112,7 @@
       </div>
 
       <div class="mt-10 grid gap-6 lg:grid-cols-3">
-        <article class="content-card reveal-card lg:col-span-2">
+        <article class="content-card trait-card reveal-card lg:col-span-2" tabindex="0">
           <p class="card-kicker">个人特质</p>
           <h3 class="content-title">友好、耐心，也愿意认真对待关系</h3>
           <p class="content-text">
@@ -118,7 +120,7 @@
             对在意的人我会特别重视，也会认真维护每一段珍贵的关系。
           </p>
         </article>
-        <article class="content-card reveal-card">
+        <article class="content-card trait-card reveal-card" tabindex="0">
           <p class="card-kicker">最近状态</p>
           <h3 class="content-title">对 AI 很上头</h3>
           <p class="content-text">
@@ -128,7 +130,7 @@
       </div>
     </section>
 
-    <section id="life" class="section-shell py-6 md:py-8">
+    <section id="hobbies" class="section-shell py-6 md:py-8">
       <div class="grid gap-6 lg:grid-cols-[0.95fr_1.05fr]">
         <article class="feature-photo-card reveal-card">
           <img
@@ -139,25 +141,46 @@
           />
         </article>
         <div class="grid gap-6 sm:grid-cols-2">
-          <article class="content-card reveal-card">
+          <article class="content-card hobby-card reveal-card" tabindex="0">
             <p class="card-kicker">兴趣爱好</p>
             <h3 class="content-title">运动让我舒服下来</h3>
             <p class="content-text">羽毛球和跑步是我比较稳定的快乐来源，既解压，也能让状态更清醒。</p>
           </article>
-          <article class="content-card reveal-card">
+          <article class="content-card hobby-card reveal-card" tabindex="0">
             <p class="card-kicker">日常娱乐</p>
             <h3 class="content-title">追剧、刷视频、打游戏</h3>
             <p class="content-text">生活里也需要轻松的部分，我会刷抖音、追剧，偶尔玩玩王者荣耀放松一下。</p>
           </article>
-          <article class="content-card reveal-card sm:col-span-2">
-            <p class="card-kicker">交友期望</p>
-            <h3 class="content-title">如果你也喜欢交流，我们可以认识一下</h3>
-            <p class="content-text">
-              如果你也喜欢聊技术、聊 AI、聊游戏，或者只是想找个人轻松说说话，都欢迎来认识我。
-              我更喜欢真诚自然的交流方式，不需要拘谨，舒服就好。
-            </p>
-          </article>
         </div>
+      </div>
+    </section>
+
+    <section id="friendship" class="section-shell py-20 md:py-16">
+      <div class="section-heading">
+        <p class="section-eyebrow">交友期望</p>
+        <h2 class="section-title">如果你也喜欢交流，我们可以认识一下</h2>
+        <p class="section-summary">
+          如果你也喜欢聊技术、聊 AI、聊游戏，或者只是想找个人轻松说说话，都欢迎来认识我。
+          我更喜欢真诚自然的交流方式，不需要拘谨，舒服就好。
+        </p>
+      </div>
+
+      <div class="mt-10 grid gap-6 md:grid-cols-3">
+        <article class="content-card friend-type-card reveal-card md:col-span-1" tabindex="0">
+          <p class="card-kicker">相处方式</p>
+          <h3 class="content-title">舒服自然</h3>
+          <p class="content-text">不用刻意迎合，也不用端着，能轻松聊天、互相尊重就很好。</p>
+        </article>
+        <article class="content-card friend-type-card reveal-card md:col-span-1" tabindex="0">
+          <p class="card-kicker">交流内容</p>
+          <h3 class="content-title">生活、兴趣、技术都可以</h3>
+          <p class="content-text">从日常分享，到 AI、游戏、影视话题，都能聊得来就很加分。</p>
+        </article>
+        <article class="content-card friend-type-card reveal-card md:col-span-1" tabindex="0">
+          <p class="card-kicker">我在意的</p>
+          <h3 class="content-title">真诚和稳定</h3>
+          <p class="content-text">我会认真对待关系，也希望彼此表达真实、联系舒服、相处稳定。</p>
+        </article>
       </div>
     </section>
 
@@ -169,12 +192,12 @@
       </div>
 
       <div class="mt-10 grid gap-6 md:grid-cols-3">
-        <a href="weixin://dl/chat?wxlin52o1314" class="contact-card reveal-card">
+        <a href="weixin://dl/chat?wxlin52o1314" class="contact-card social-link reveal-card">
           <span class="contact-label">微信</span>
           <strong class="contact-value">wxlin52o1314</strong>
           <span class="contact-hint">如果手机支持，可直接拉起微信</span>
         </a>
-        <a href="mailto:linlongxiansheng@163.com" class="contact-card reveal-card">
+        <a href="mailto:linlongxiansheng@163.com" class="contact-card social-link reveal-card">
           <span class="contact-label">邮箱</span>
           <strong class="contact-value">linlongxiansheng@163.com</strong>
           <span class="contact-hint">欢迎直接给我发邮件</span>
@@ -183,7 +206,7 @@
           href="https://github.com/linlong1314"
           target="_blank"
           rel="noopener noreferrer"
-          class="contact-card reveal-card"
+          class="contact-card social-link reveal-card"
         >
           <span class="contact-label">GitHub</span>
           <strong class="contact-value">linlong1314</strong>
@@ -192,6 +215,10 @@
       </div>
     </section>
   </main>
+
+  <footer class="section-shell pb-10 pt-2 text-center text-sm text-slate-500 dark:text-slate-400">
+    <p>© 2025 林龙的个人主页。很高兴你来到这里。</p>
+  </footer>
 
   <script type="module" src="/js/main.js"></script>
 </body>

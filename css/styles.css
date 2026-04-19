@@ -190,15 +190,32 @@
 
   /* ===== Main Content ===== */
   .main-content {
-    @apply relative z-10 bg-white;
+    @apply relative z-10;
+    background: linear-gradient(180deg, #f0fdf4 0%, #fefefe 30%, #fdf4ff 60%, #ecfeff 100%);
   }
 
   .content-section {
     @apply py-16 md:py-24;
   }
 
+  /* 关于我区域 - 淡绿渐变 */
+  #about {
+    background: linear-gradient(135deg, #ecfdf5 0%, #f0fdfa 50%, #f5f3ff 100%);
+  }
+
+  /* 个人特质区域 - 淡紫粉渐变 */
   .section-alt {
-    background: linear-gradient(180deg, #f0fdf4 0%, #ffffff 50%, #fdf4ff 100%);
+    background: linear-gradient(180deg, #fdf4ff 0%, #faf5ff 30%, #f0fdfa 70%, #ecfeff 100%);
+  }
+
+  /* 兴趣爱好区域 - 淡蓝绿渐变 */
+  #hobbies {
+    background: linear-gradient(135deg, #ecfeff 0%, #f0fdfa 50%, #f0fdf4 100%);
+  }
+
+  /* 联系区域 - 淡暖色渐变 */
+  #contact {
+    background: linear-gradient(135deg, #fef3c7 0%, #fef9c3 30%, #ecfdf5 70%, #f0fdfa 100%);
   }
 
   .section-container {
@@ -291,13 +308,16 @@
   }
 
   .trait-card {
-    @apply relative rounded-3xl bg-white p-8 text-center shadow-lg shadow-gray-100 transition-all duration-500 hover:-translate-y-2 hover:shadow-2xl overflow-hidden;
+    @apply relative rounded-3xl p-8 text-center shadow-lg transition-all duration-500 hover:-translate-y-2 hover:shadow-2xl overflow-hidden;
+    background: linear-gradient(145deg, rgba(255,255,255,0.9) 0%, rgba(240,253,244,0.8) 100%);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(16, 185, 129, 0.1);
   }
 
   .trait-card::before {
     content: '';
     @apply absolute inset-0 opacity-0 transition-opacity duration-500;
-    background: linear-gradient(135deg, rgba(16, 185, 129, 0.03) 0%, rgba(14, 165, 233, 0.03) 100%);
+    background: linear-gradient(135deg, rgba(16, 185, 129, 0.08) 0%, rgba(14, 165, 233, 0.08) 100%);
   }
 
   .trait-card:hover::before {
@@ -349,11 +369,13 @@
 
   .hobby-card {
     @apply flex flex-col items-center rounded-2xl p-6 text-center shadow-md transition-all duration-500 hover:-translate-y-2 hover:shadow-xl;
-    background: linear-gradient(145deg, #ffffff 0%, #f8fafc 100%);
+    background: linear-gradient(145deg, rgba(255,255,255,0.95) 0%, rgba(236,253,245,0.9) 100%);
+    border: 1px solid rgba(16, 185, 129, 0.08);
   }
 
   .hobby-card:hover {
-    background: linear-gradient(145deg, #ffffff 0%, #f0fdfa 100%);
+    background: linear-gradient(145deg, rgba(255,255,255,1) 0%, rgba(204,251,241,0.6) 100%);
+    border-color: rgba(16, 185, 129, 0.2);
   }
 
   .hobby-emoji {
@@ -378,13 +400,16 @@
   }
 
   .friendship-card {
-    @apply relative rounded-3xl bg-white p-8 text-center shadow-lg shadow-gray-100 transition-all duration-500 hover:-translate-y-2 hover:shadow-2xl overflow-hidden;
+    @apply relative rounded-3xl p-8 text-center shadow-lg transition-all duration-500 hover:-translate-y-2 hover:shadow-2xl overflow-hidden;
+    background: linear-gradient(145deg, rgba(255,255,255,0.9) 0%, rgba(250,245,255,0.8) 100%);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(139, 92, 246, 0.1);
   }
 
   .friendship-card::before {
     content: '';
     @apply absolute inset-0 opacity-0 transition-opacity duration-500;
-    background: linear-gradient(135deg, rgba(236, 72, 153, 0.03) 0%, rgba(139, 92, 246, 0.03) 100%);
+    background: linear-gradient(135deg, rgba(236, 72, 153, 0.08) 0%, rgba(139, 92, 246, 0.08) 100%);
   }
 
   .friendship-card:hover::before {
@@ -414,12 +439,14 @@
 
   .contact-card {
     @apply flex flex-col items-center rounded-2xl p-6 text-center shadow-md transition-all duration-500 hover:-translate-y-2 hover:shadow-xl;
-    background: linear-gradient(145deg, #ffffff 0%, #f8fafc 100%);
+    background: linear-gradient(145deg, rgba(255,255,255,0.95) 0%, rgba(254,243,199,0.6) 100%);
+    border: 1px solid rgba(245, 158, 11, 0.1);
     text-decoration: none;
   }
 
   .contact-card:hover {
-    background: linear-gradient(145deg, #ffffff 0%, #ecfdf5 100%);
+    background: linear-gradient(145deg, rgba(255,255,255,1) 0%, rgba(236,253,245,0.8) 100%);
+    border-color: rgba(16, 185, 129, 0.2);
   }
 
   .contact-emoji {
@@ -445,7 +472,8 @@
 
   /* ===== Footer ===== */
   .site-footer {
-    @apply flex flex-col items-center bg-gradient-to-b from-white to-gray-50 py-12 text-center;
+    @apply flex flex-col items-center py-12 text-center;
+    background: linear-gradient(180deg, #ecfdf5 0%, #f0fdfa 50%, #faf5ff 100%);
   }
 
   .back-to-top {
@@ -480,15 +508,15 @@
 /* ===== Responsive - Mobile ===== */
 @media (max-width: 768px) {
   .hero-name {
-    @apply text-4xl;
+    font-size: 2.25rem;
   }
 
   .hero-tagline {
-    @apply text-sm;
+    font-size: 0.875rem;
   }
 
   .hero-nav {
-    @apply hidden;
+    display: none;
   }
 
   .hero-tag {
@@ -496,7 +524,7 @@
   }
 
   .about-grid {
-    @apply grid-cols-1;
+    grid-template-columns: 1fr;
   }
 
   .about-photo {
@@ -504,31 +532,33 @@
   }
 
   .about-stats {
-    @apply grid-cols-3 gap-2;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 0.5rem;
   }
 
   .stat-item {
-    @apply p-3;
+    padding: 0.75rem;
   }
 
   .stat-icon {
-    @apply text-xl;
+    font-size: 1.25rem;
   }
 
   .stat-value {
-    @apply text-xs;
+    font-size: 0.75rem;
   }
 
   .traits-grid {
-    @apply grid-cols-1;
+    grid-template-columns: 1fr;
   }
 
   .trait-card {
-    @apply p-6;
+    padding: 1.5rem;
   }
 
   .hobby-showcase {
-    @apply grid-cols-1 gap-3;
+    grid-template-columns: 1fr;
+    gap: 0.75rem;
   }
 
   .hobby-img-item {
@@ -536,27 +566,32 @@
   }
 
   .hobbies-grid {
-    @apply grid-cols-2 gap-3;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 0.75rem;
   }
 
   .hobby-card {
-    @apply p-4;
+    padding: 1rem;
   }
 
   .hobby-emoji {
-    @apply text-3xl;
+    font-size: 1.875rem;
   }
 
   .friendship-grid {
-    @apply grid-cols-1;
+    grid-template-columns: 1fr;
   }
 
   .friendship-card {
-    @apply p-6;
+    padding: 1.5rem;
   }
 
   .section-heading {
-    @apply text-xl;
+    font-size: 1.25rem;
+  }
+
+  .contact-grid {
+    grid-template-columns: 1fr;
   }
 }
 

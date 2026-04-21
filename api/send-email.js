@@ -6,6 +6,39 @@ const nodemailer = require('nodemailer');
 
 let transporter;
 
+// HTML 转义防止 XSS
+function escapeHtml(str) {
+  if (!str) return '';
+  return String(str)
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;')
+    .replace(/'/g, '&#39;');
+}
+
+// 简易速率限制（基于内存，Serverless 环境下有限但聊胜于无）
+const rateLimit = new Map();
+const RATE_LIMIT_WINDOW = 60 * 1000; // 1分钟
+const RATE_LIMIT_MAX = 3; // 每分钟最多3次
+
+function checkRateLimit(ip) {
+  const now = Date.now();
+  const record = rateLimit.get(ip);
+  
+  if (!record || now - record.timestamp > RATE_LIMIT_WINDOW) {
+    rateLimit.set(ip, { timestamp: now, count: 1 });
+    return true;
+  }
+  
+  if (record.count >= RATE_LIMIT_MAX) {
+    return false;
+  }
+  
+  record.count++;
+  return true;
+}
+
 function getTransporter() {
   const emailUser = process.env.EMAIL_USER;
   const emailPass = process.env.EMAIL_PASS;
@@ -27,12 +60,21 @@ function getTransporter() {
       auth: {
         user: emailUser,
         pass: emailPass
-      }
+      },
+      pool: true,
+      maxConnections: 3,
+      maxMessages: 100
     });
   }
 
   return transporter;
 }
+
+// 输入长度限制
+const MAX_NAME_LENGTH = 50;
+const MAX_EMAIL_LENGTH = 100;
+const MAX_SUBJECT_LENGTH = 100;
+const MAX_MESSAGE_LENGTH = 2000;
 
 module.exports = async (req, res) => {
   if (req.method === 'OPTIONS') {
@@ -47,9 +89,18 @@ module.exports = async (req, res) => {
     });
   }
 
+  // 速率限制检查
+  const clientIp = req.headers['x-forwarded-for']?.split(',')[0]?.trim() || 'unknown';
+  if (!checkRateLimit(clientIp)) {
+    return res.status(429).json({
+      success: false,
+      message: '请求过于频繁，请稍后再试'
+    });
+  }
+
   try {
     const body = typeof req.body === 'string' ? JSON.parse(req.body) : (req.body || {});
-    const { name, email, subject, message } = body;
+    let { name, email, subject, message } = body;
 
     // 验证必填字段
     if (!name || !email || !subject || !message) {
@@ -59,6 +110,12 @@ module.exports = async (req, res) => {
       });
     }
 
+    // 去除首尾空格并限制长度
+    name = String(name).trim().slice(0, MAX_NAME_LENGTH);
+    email = String(email).trim().slice(0, MAX_EMAIL_LENGTH);
+    subject = String(subject).trim().slice(0, MAX_SUBJECT_LENGTH);
+    message = String(message).trim().slice(0, MAX_MESSAGE_LENGTH);
+
     // 验证邮箱格式
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (!emailRegex.test(email)) {
@@ -67,6 +124,12 @@ module.exports = async (req, res) => {
         message: '邮箱格式不正确'
       });
     }
+
+    // 转义用户输入防止 XSS
+    const safeName = escapeHtml(name);
+    const safeEmail = escapeHtml(email);
+    const safeSubject = escapeHtml(subject);
+    const safeMessage = escapeHtml(message);
 
     // 邮件内容
     const emailUser = process.env.EMAIL_USER;
@@ -78,20 +141,20 @@ module.exports = async (req, res) => {
       subject: `[网站留言] ${subject}`,
       html: `
         <div style="font-family: 'Microsoft YaHei', sans-serif; max-width: 600px; margin: 0 auto; padding: 20px;">
-          <h2 style="color: #8B5CF6; border-bottom: 2px solid #8B5CF6; padding-bottom: 10px;">
+          <h2 style="color: #10b981; border-bottom: 2px solid #10b981; padding-bottom: 10px;">
             📮 收到新的网站留言
           </h2>
-          <div style="background: #f8f9fa; padding: 20px; border-radius: 10px; margin: 20px 0;">
-            <p style="margin: 10px 0;"><strong>👤 发送者：</strong>${name}</p>
-            <p style="margin: 10px 0;"><strong>📧 邮箱：</strong><a href="mailto:${email}">${email}</a></p>
-            <p style="margin: 10px 0;"><strong>📝 主题：</strong>${subject}</p>
+          <div style="background: linear-gradient(135deg, #ecfdf5 0%, #f0fdfa 100%); padding: 20px; border-radius: 12px; margin: 20px 0;">
+            <p style="margin: 10px 0;"><strong>👤 发送者：</strong>${safeName}</p>
+            <p style="margin: 10px 0;"><strong>📧 邮箱：</strong><a href="mailto:${safeEmail}" style="color: #10b981;">${safeEmail}</a></p>
+            <p style="margin: 10px 0;"><strong>📝 主题：</strong>${safeSubject}</p>
           </div>
-          <div style="background: #fff; padding: 20px; border: 1px solid #e9ecef; border-radius: 10px;">
+          <div style="background: #fff; padding: 20px; border: 1px solid #d1fae5; border-radius: 12px;">
             <h3 style="color: #333; margin-top: 0;">💬 留言内容：</h3>
-            <p style="color: #555; line-height: 1.8; white-space: pre-wrap;">${message}</p>
+            <p style="color: #555; line-height: 1.8; white-space: pre-wrap;">${safeMessage}</p>
           </div>
           <p style="color: #999; font-size: 12px; margin-top: 20px; text-align: center;">
-            此邮件来自「我的小天地」个人网站
+            此邮件来自「林龙的小天地」个人网站
           </p>
         </div>
       `
@@ -102,20 +165,25 @@ module.exports = async (req, res) => {
 
     // 发送自动回复给访客
     const autoReplyOptions = {
-      from: `"我的小天地" <${emailUser}>`,
+      from: `"林龙的小天地" <${emailUser}>`,
       to: email,
-      subject: '感谢你的留言！',
+      subject: '感谢你的留言！ 💚',
       html: `
         <div style="font-family: 'Microsoft YaHei', sans-serif; max-width: 600px; margin: 0 auto; padding: 20px;">
-          <h2 style="color: #8B5CF6;">嗨 ${name}，感谢你的留言！ 💜</h2>
+          <h2 style="color: #10b981;">嗨 ${safeName}，感谢你的留言！ �</h2>
           <p style="color: #555; line-height: 1.8;">
             我已经收到你的消息啦，会尽快回复你的～
           </p>
           <p style="color: #555; line-height: 1.8;">
-            如果有急事，也可以直接加我微信：<strong>wxlin52o1314</strong>
+            如果有急事，也可以直接加我微信：<strong style="color: #10b981;">wxlin52o1314</strong>
           </p>
+          <div style="margin-top: 20px; padding: 15px; background: linear-gradient(135deg, #ecfdf5 0%, #f0fdfa 100%); border-radius: 10px;">
+            <p style="margin: 0; color: #666; font-size: 14px;">
+              期待与你成为朋友！ ✨
+            </p>
+          </div>
           <p style="color: #999; font-size: 12px; margin-top: 30px;">
-            —— 来自「我的小天地」
+            —— 来自「林龙的小天地」
           </p>
         </div>
       `
